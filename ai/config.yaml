@@ -1,0 +1,72 @@
+# NexusOS AI Configuration
+# ========================
+# This file configures the Nexus AI assistant.
+# Edit and restart the service: systemctl --user restart nexus-ai
+
+version: "1.0"
+codename: "Aurora"
+
+# API Server
+api:
+  host: "127.0.0.1"    # Localhost only — never expose externally
+  port: 5210
+
+# Voice Recognition (offline, using Vosk)
+voice:
+  enabled: true
+  wake_word: "nexus"
+  model_path: "/opt/nexusos/ai/models/vosk-model-small-en-in-0.4"
+  language: "en-in"  # Indian English model
+
+# Local LLM (Ollama)
+llm:
+  enabled: true
+  provider: "ollama"
+  model: "llama3.2"    # Options: llama3.2, mistral, phi3, gemma2
+  endpoint: "http://127.0.0.1:11434/api/generate"
+  temperature: 0.7
+  max_tokens: 500
+
+# Web Search
+search:
+  provider: "duckduckgo"
+  timeout: 10
+  max_results: 5
+
+# Privacy
+privacy:
+  mode: true          # Enable strict privacy
+  no_telemetry: true
+  no_cloud: true       # Never send data to cloud
+  log_queries: false   # Log queries locally for debugging
+
+# Conversation
+conversation:
+  max_context: 50      # Max history items to keep
+  auto_clear: false    # Clear context on each session
+
+# User
+user:
+  name: "raj"
+  timezone: "Asia/Kolkata"
+
+# OS Control
+os_control:
+  allowed_commands:   # Commands the AI can run without confirmation
+    - "ls"
+    - "cat"
+    - "df"
+    - "free"
+    - "uptime"
+    - "date"
+    - "whoami"
+    - "uname"
+    - "ps"
+    - "top"
+  blocked_commands:   # Commands the AI will never run
+    - "rm -rf /"
+    - "dd"
+    - "mkfs"
+    - "fdisk"
+    - "shutdown"
+    - "reboot"
