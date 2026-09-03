@@ -1,0 +1,60 @@
+name: Build NexusOS ISO
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag'
+        required: false
+        default: '1.0'
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up build environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin mtools dosfstools isolinux syslinux-common live-build debian-archive-keyring
+      - name: Build NexusOS ISO
+        working-directory: live-build
+        run: |
+          chmod +x auto/config
+          lb config
+          sudo lb build 2>&1 | tee build.log
+          VERSION="${{ github.event.inputs.version || '1.0' }}"
+          for f in *.hybrid.iso *.iso; do
+            if [ -f "$f" ]; then
+              mv "$f" "nexusos-${VERSION}-amd64.iso"
+              break
+            fi
+          done
+          if [ -f "nexusos-${VERSION}-amd64.iso" ]; then
+            sha256sum "nexusos-${VERSION}-amd64.iso" > "nexusos-${VERSION}-amd64.iso.sha256"
+            echo "BUILD_SUCCESS=true" >> $GITHUB_ENV
+          fi
+      - name: Upload ISO artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexusos-iso
+          path: live-build/*.iso
+          retention-days: 90
+      - name: Create Release
+        if: env.BUILD_SUCCESS == 'true' && startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            live-build/nexusos-*-amd64.iso
+            live-build/nexusos-*-amd64.iso.sha256
+          body: |
+            ## NexusOS Download
+            1. Download the ISO file
+            2. Flash to USB (use Rufus on Windows, dd on Linux/Mac)
+            3. Boot from USB
+            4. Follow installer

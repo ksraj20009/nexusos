@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  nexusos:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: nexusos:latest
+    container_name: nexusos
+    privileged: true
+    ports:
+      - "5210:5210"
+      - "9050:9050"
+    volumes:
+      - nexusos-home:/home/nexus
+    restart: unless-stopped
+volumes:
+  nexusos-home:

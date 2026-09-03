@@ -1,33 +1,28 @@
 # Build artifacts
-output/
-work/
-archiso/
-*.iso
-*.img
-*.tar.gz
+live-build/.build/
+live-build/*.iso
+live-build/*.img
+live-build/cache/
+live-build/chroot/
+live-build/binary/
+live-build/build.log
 
 # Python
-__pycache__/*..pyc
-*.pyo
-*.egg-info/
-dist/
-build/
+__pycache__/
+*.pyc
 .venv/
-venv/
 
-# Models (too large for git)
+# Models
 ai/models/
 
 # IDE
 .vscode/
 .idea/
 *.swp
-*.swo
-*~
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
+# Docker
+nexusos-docker.tar.gz
