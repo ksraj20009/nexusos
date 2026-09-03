@@ -1,0 +1,33 @@
+# Build artifacts
+output/
+work/
+archiso/
+*.iso
+*.img
+*.tar.gz
+
+# Python
+__pycache__/*..pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Models (too large for git)
+ai/models/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
