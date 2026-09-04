@@ -1,10 +1,10 @@
 #!/bin/bash
-# NexusOS Tor Transparent Proxy Setup
+# Vajra OS Tor Transparent Proxy Setup
 set -e
-echo "◆ NexusOS Tor Proxy Setup"
+echo "◆ Vajra OS Tor Proxy Setup"
 if [[ $EUID -ne 0 ]]; then echo "Run as root"; exit 1; fi
 if ! command -v tor &>/dev/null; then apt-get update && apt-get install -y tor; fi
-cp /opt/nexusos/privacy/torrc /etc/tor/torrc 2>/dev/null || true
+cp /opt/vajra/privacy/torrc /etc/tor/torrc 2>/dev/null || true
 systemctl enable tor && systemctl start tor
 sleep 3
 TOR_UID=$(id -u debian-tor 2>/dev/null || id -u tor 2>/dev/null || echo 0)
@@ -24,5 +24,5 @@ iptables -A OUTPUT -j DROP
 iptables -A INPUT -j DROP
 iptables -P INPUT DROP && iptables -P FORWARD DROP && iptables -P OUTPUT DROP
 echo "nameserver 127.0.0.1" > /etc/resolv.conf
-mkdir -p /etc/nexusos && iptables-save > /etc/nexusos/iptables.rules
+mkdir -p /etc/vajra && iptables-save > /etc/vajra/iptables.rules
 echo "◆ Tor Transparent Proxy Active!"
