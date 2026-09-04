@@ -1,0 +1,19 @@
+# NexusOS Kernel Branding Patch
+# Changes the kernel version string to show "NexusOS"
+# Applied to: init/version.c
+
+diff --git a/init/version.c b/init/version.c
+index 2ee22354069a..1a2b3c4d5e6f 100644
+--- a/init/version.c
++++ b/init/version.c
+@@ -45,6 +45,10 @@
+ 
+ const char linux_proc_banner[] =
+ 	"%s version %s"
++	" (NexusOS 1.0 \"Aurora\")"
+ 	" (gcc version %d.%d.%d) %s"
+ 	" #1 SMP " UTS_VERSION "\n";
+ 
++/* NexusOS branding */
++const char nexusos_version[] = "NexusOS 1.0 Aurora";
++EXPORT_SYMBOL_GPL(nexusos_version);
