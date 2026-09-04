@@ -1,10 +1,10 @@
 [Unit]
-Description=NexusOS Welcome Screen
+Description=Vajra OS Welcome Screen
 After=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=/opt/nexusos/scripts/welcome.sh
+ExecStart=/opt/vajra/scripts/welcome.sh
 RemainAfterExit=yes
 
 [Install]
