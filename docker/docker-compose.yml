@@ -1,17 +1,64 @@
 version: '3.8'
+
 services:
-  nexusos:
+  vajra-os:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: nexusos:latest
-    container_name: nexusos
-    privileged: true
+    image: vajra-os:1.0
+    container_name: vajra
+    hostname: vajra
     ports:
       - "5210:5210"
-      - "9050:9050"
     volumes:
-      - nexusos-home:/home/nexus
+      - vajra-home:/home/vajra
+      - vajra-tor:/var/lib/tor
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - VAJRA_VERSION=1.0
     restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    networks:
+      - vajra-net
+
+  vajra-vpn:
+    image: linuxserver/wireguard
+    container_name: vajra-vpn
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - vajra-vpn:/config
+    ports:
+      - "51820:51820/udp"
+    restart: unless-stopped
+    networks:
+      - vajra-net
+
+  vajra-vault:
+    image: vaultwarden/server:latest
+    container_name: vajra-vault
+    ports:
+      - "8222:80"
+    volumes:
+      - vajra-vault:/data
+    environment:
+      - SIGNUPS_ALLOWED=true
+      - DOMAIN=http://localhost:8222
+    restart: unless-stopped
+    networks:
+      - vajra-net
+
 volumes:
-  nexusos-home:
+  vajra-home:
+  vajra-tor:
+  vajra-vpn:
+  vajra-vault:
+
+networks:
+  vajra-net:
+    driver: bridge
