@@ -1,0 +1,144 @@
+name: Build NexusOS
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  build-kernel:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev bc cpio kmod wget git
+      - name: Clone Linux kernel
+        run: |
+          git clone --depth=1 --branch v6.10 https://github.com/torvalds/linux.git kernel/linux
+      - name: Apply NexusOS patches
+        run: |
+          cd kernel/linux
+          for patch in ../../kernel/patches/*.patch; do
+            git apply "$patch" 2>/dev/null || echo "Patch skipped: $(basename $patch)"
+          done
+      - name: Apply NexusOS kernel config
+        run: |
+          cd kernel/linux
+          make defconfig
+          while IFS= read -r line; do
+            [[ "$line" =~ ^# ]] && continue
+            [[ -z "$line" ]] && continue
+            key=$(echo "$line" | cut -d= -f1)
+            val=$(echo "$line" | cut -d= -f2)
+            if [ "$val" = "y" ]; then scripts/config --enable "$key"
+            elif [ "$val" = "n" ]; then scripts/config --disable "$key"
+            else scripts/config --set-str "$key" "$val"; fi
+          done < ../../kernel/configs/nexusos.config
+          scripts/config --set-str LOCALVERSION "-nexusos"
+          make olddefconfig
+      - name: Build kernel
+        run: |
+          cd kernel/linux
+          make -j$(nproc) 2>&1 | tail -5
+      - name: Build modules
+        run: |
+          cd kernel/linux
+          make modules -j$(nproc) 2>&1 | tail -5
+          mkdir -p ../../output
+          cp arch/x86/boot/bzImage ../../output/nexusos-kernel-x86_64
+          make modules_install INSTALL_MOD_PATH=../../output/modules 2>&1 | tail -3
+      - name: Package kernel
+        run: |
+          cd output
+          tar czf nexusos-kernel.tar.gz nexusos-kernel-x86_64 modules/
+          sha256sum nexusos-kernel.tar.gz > nexusos-kernel.tar.gz.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nexusos-kernel
+          path: output/nexusos-kernel.tar.gz
+          retention-days: 90
+
+  build-iso:
+    needs: build-kernel
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download kernel artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: nexusos-kernel
+          path: ./kernel-artifact
+      - name: Install live-build
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y live-build debootstrap squashfs-tools xorriso isolinux syslinux-common grub-pc-bin grub-efi-amd64-bin mtools
+      - name: Build ISO
+        run: |
+          mkdir -p nexusos-lb && cd nexusos-lb
+          lb config --distribution trixie --architecture amd64 --bootloaders syslinux,grub-efi --iso-volume NexusOS-1.0 --iso-application NexusOS --mirror-bootstrap http://deb.debian.org/debian/ --mirror-binary http://deb.debian.org/debian/ --locale en_IN.UTF-8
+          cat > config/package-lists/nexusos.list.chroot << 'PKG'
+          live-boot live-config systemd sudo wget curl tor firewalld apparmor python3 python3-pip python3-requests network-manager network-manager-gnome task-gnome-desktop gdm3 gnome-core gnome-terminal nautilus gedit firefox-esr htop neofetch git calamares calamares-settings-debian btrfs-progs pipewire pipewire-pulse
+          PKG
+          mkdir -p config/includes.chroot/opt/nexusos/{ai,privacy,scripts}
+          cp ../ai/nexus-ai.py config/includes.chroot/opt/nexusos/ai/ 2>/dev/null || true
+          cp ../privacy/* config/includes.chroot/opt/nexusos/privacy/
+          cp ../scripts/*.sh config/includes.chroot/opt/nexusos/scripts/
+          chmod +x config/includes.chroot/opt/nexusos/ai/*.py config/includes.chroot/opt/nexusos/scripts/*.sh config/includes.chroot/opt/nexusos/privacy/*.sh
+          tar xzf ../../kernel-artifact/nexusos-kernel.tar.gz -C /tmp
+          mkdir -p config/includes.chroot/boot config/includes.chroot/lib/modules
+          cp /tmp/nexusos-kernel-x86_64 config/includes.chroot/boot/vmlinuz 2>/dev/null || true
+          cp -r /tmp/modules/lib/modules/* config/includes.chroot/lib/modules/ 2>/dev/null || true
+          mkdir -p config/hooks/normal
+          cat > config/hooks/normal/01-nexusos.hook.chroot << 'HOOK'
+          #!/bin/bash
+          set -e
+          echo "nexusos" > /etc/hostname
+          useradd -m -s /bin/bash -G sudo,netdev,audio,video nexus 2>/dev/null || true
+          echo "nexus:nexus" | chpasswd
+          echo "nexus ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nexus
+          mkdir -p /etc/gdm3
+          echo -e '[daemon]\nAutomaticLoginEnable=true\nAutomaticLogin=nexus\n[security]\nDisallowRoot=true' > /etc/gdm3/daemon.conf
+          cat > /usr/bin/nexus-ai << 'CMD'
+          #!/bin/bash
+          exec python3 /opt/nexusos/ai/nexus-ai.py "$@"
+          CMD
+          chmod +x /usr/bin/nexus-ai
+          cat > /etc/systemd/system/nexus-ai.service << 'SVC'
+          [Unit]
+          Description=NexusOS AI
+          After=network-online.target
+          [Service]
+          Type=simple
+          User=nexus
+          ExecStart=/usr/bin/python3 /opt/nexusos/ai/nexus-ai.py --service
+          Restart=always
+          [Install]
+          WantedBy=multi-user.target
+          SVC
+          systemctl enable nexus-ai tor firewalld 2>/dev/null || true
+          HOOK
+          chmod +x config/hooks/normal/01-nexusos.hook.chroot
+          sudo lb build 2>&1 | tail -20
+          for f in *.hybrid.iso *.iso; do
+            if [ -f "$f" ]; then mv "$f" nexusos-1.0-amd64.iso; break; fi
+          done
+          sha256sum nexusos-1.0-amd64.iso > nexusos-1.0-amd64.iso.sha256 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nexusos-iso
+          path: nexusos-lb/nexusos-1.0-amd64.iso*
+          retention-days: 90
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: nexusos-lb/nexusos-1.0-amd64.iso*
+          body: |
+            ## NexusOS Download
+            1. Download ISO
+            2. Flash to USB (Rufus on Windows, dd on Linux/Mac)
+            3. Boot from USB
+            4. Click Install NexusOS
