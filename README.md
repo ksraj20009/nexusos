@@ -1,171 +1,121 @@
 # ◆ NexusOS
 
-**A privacy-first, AI-powered Linux distribution that anyone can use.**
+**A privacy-first, AI-powered Linux operating system built on the real Linux kernel.**
 
-Built on Debian. Tor-routed. AI-assisted. Beginner-friendly.
+## What This Is
 
----
+NexusOS takes the **real Linux kernel** from [torvalds/linux](https://github.com/torvalds/linux), applies custom security/privacy patches, builds it with a custom configuration, and packages it into a complete bootable OS with GNOME desktop, AI assistant, and Tor privacy.
 
-## 📥 Download
+This is how real Linux distributions work — Ubuntu, Fedora, Kali Linux all do this. They don't fork 80,000 files; they take the upstream kernel and apply their customization layer on top.
 
-### Option 1: Download the ISO (for installing on your computer)
+## 📥 Download & Install
 
-1. Go to the [Releases page](https://github.com/ksraj20009/nexusos/releases)
+### For Users (No Technical Knowledge Needed)
+
+1. Go to [Releases](https://github.com/ksraj20009/nexusos/releases)
 2. Download `nexusos-1.0-amd64.iso`
-3. Flash it to a USB drive (4GB+):
-   - **Windows**: Use [Rufus](https://rufus.ie/) or [balenaEtcher](https://etcher.balena.io/)
-   - **Mac**: `sudo dd if=nexusos-1.0-amd64.iso of=/dev/rdiskN bs=4m`
-   - **Linux**: `sudo dd if=nexusos-1.0-amd64.iso of=/dev/sdX bs=4M status=progress`
-4. Restart your computer and boot from the USB drive
-5. Follow the on-screen installer (Calamares)
+3. Flash to USB drive:
+   - **Windows**: Use [Rufus](https://rufus.ie/)
+   - **Mac/Linux**: `sudo dd if=nexusos-1.0-amd64.iso of=/dev/sdX bs=4M`
+4. Boot from USB
+5. Click "Install NexusOS"
 
-### Option 2: Try with Docker (no installation needed)
+### System Requirements
+- 2GB+ RAM (4GB recommended)
+- 15GB+ disk space
+- x86_64 processor
+- 4GB+ USB drive
 
-```bash
-git clone https://github.com/ksraj20009/nexusos.git
-cd nexusos
-docker-compose -f docker/docker-compose.yml up
-```
+## 🔧 What's Inside
 
-### Option 3: Build the ISO yourself (on Debian/Ubuntu)
+### Custom Linux Kernel
+- Based on Linux v6.10 from torvalds/linux
+- Security: AppArmor, YAMA, lockdown, kernel ASLR, module signing
+- Privacy: network namespaces (Tor support), strong crypto
+- Performance: CPU frequency scaling
+- Filesystem: Btrfs, EXT4, F2FS, OverlayFS, SquashFS
 
-```bash
-git clone https://github.com/ksraj20009/nexusos.git
-cd nexusos/live-build
-sudo apt install live-build
-lb config
-sudo lb build
-```
+### Privacy Suite
+- Tor transparent proxy (all traffic through Tor)
+- Encrypted DNS (DoH/DoT)
+- MAC address randomization
+- Firewall (drop zone — no incoming connections)
+- Firefox hardened (no telemetry, fingerprinting resistance)
+- Kernel hardening (ASLR, kptr restrict, dmesg restrict)
 
----
+### AI Assistant
+- Web search (DuckDuckGo + Wikipedia)
+- Software alternatives finder
+- OS control (open apps, run commands)
+- Voice recognition (Vosk, offline)
+- Local LLM (Ollama, fully offline)
+- REST API on localhost:5210
+- No cloud — everything runs locally
 
-## ✨ What is NexusOS?
+### Desktop
+- GNOME (modern, beginner-friendly)
+- Auto-login
+- Desktop shortcuts
+- Welcome screen
 
-NexusOS is a complete operating system built on Debian Linux. It has three priorities:
-
-### 🔒 Privacy First
-- All network traffic routed through Tor by default
-- Encrypted DNS (no one can see what websites you visit)
-- MAC address randomization (your device can't be tracked)
-- Strict firewall (no incoming connections)
-- Zero telemetry — nothing about you is collected
-- No cloud services — your data never leaves your machine
-
-### ✦ AI Powered
-- Built-in AI assistant (runs locally, no cloud AI)
-- Voice control — say "Nexus" followed by your command
-- Web search via DuckDuckGo + Wikipedia
-- Find software alternatives ("alternatives for Notion")
-- Control the OS ("open browser", "lock screen", "system status")
-- Local LLM integration via Ollama (optional, for offline AI)
-
-### 🖥️ Beginner Friendly
-- GNOME desktop (same as Ubuntu, easy to use)
-- Large touch-friendly icons
-- Welcome screen with quick start guide
-- Graphical installer (Calamares)
-- Auto-login on live USB
-- Desktop shortcuts for AI assistant and installer
-- Works on old hardware (2GB RAM minimum)
-
----
-
-## 🚀 Getting Started
-
-### After booting NexusOS:
-
-1. **Boot into NexusOS** — you'll see the GNOME desktop
-2. **Press Ctrl+Space** — the AI command bar opens
-3. **Type a question** — try "what time is it?" or "search for best laptops"
-4. **Or use voice** — say "Nexus, what's the weather?"
-5. **Open apps** — click "Activities" or press Super key
-6. **Install** — double-click "Install NexusOS" on the desktop
-
-### Quick keyboard shortcuts:
-- **Ctrl+Space** — AI command bar
-- **Ctrl+Alt+T** — Terminal
-- **Super key** — Activities overview
-- **Super + L** — Lock screen
-
----
-
-## 📋 System Requirements
-
-| Requirement | Minimum | Recommended |
-|-------------|---------|-------------|
-| RAM | 2GB | 4GB+ |
-| Storage | 15GB | 32GB+ |
-| CPU | x86_64, 1GHz | Dual-core 2GHz+ |
-| USB drive | 4GB | 8GB+ |
-| Boot mode | BIOS/UEFI | UEFI |
-
----
-
-## 📁 Project Structure
+## 📁 Repository Structure
 
 ```
 nexusos/
-├── .github/workflows/       # GitHub Actions (auto-builds ISO)
-├── live-build/              # Debian live-build configuration
-│   ├── auto/                # Build config script
-│   ├── config/
-│   │   ├── package-lists/   # Software packages to install
-│   │   ├── hooks/           # Customization scripts
-│   │   └── includes.chroot/ # Files to include in the ISO
-│   └── ...
-├── docker/                  # Docker image files
-│   ├── Dockerfile
-│   └── docker-compose.yml
+├── kernel/
+│   ├── configs/
+│   │   └── nexusos.config      # Custom kernel config (80+ settings)
+│   └── patches/
+│       └── 0001-nexusos-branding.patch
+├── ai/
+│   └── nexus-ai.py              # AI assistant (16KB, full features)
+├── privacy/
+│   ├── torrc                     # Tor configuration
+│   ├── setup-tor-proxy.sh        # Transparent Tor proxy
+│   └── harden.sh                 # 8-step privacy hardening
+├── scripts/
+│   ├── build-kernel.sh           # Clones Linux, applies patches, builds
+│   └── build-iso.sh              # Full ISO builder
+├── .github/workflows/
+│   └── build.yml                 # GitHub Actions: auto-builds kernel + ISO
 └── README.md
 ```
 
----
+## 🔄 How the Build Works
 
-## 🔧 How the ISO is built
-
-NexusOS uses **Debian live-build** — the same tool used by Kali Linux and Parrot OS.
-
-1. GitHub Actions triggers on a new tag (e.g., `v1.0`)
-2. It installs `live-build` on a GitHub runner
-3. `lb config` sets up the build
-4. `lb build` downloads Debian packages and creates the ISO
-5. The ISO is published as a GitHub Release
+1. GitHub Actions clones torvalds/linux (v6.10)
+2. Applies NexusOS patches (branding, etc.)
+3. Applies custom kernel config (security, privacy, crypto)
+4. Compiles the kernel (30-60 min on GitHub runners)
+5. Builds a Debian-based ISO with live-build
+6. Publishes the ISO as a downloadable release
 
 To trigger a build:
 ```bash
 git tag v1.0
 git push origin v1.0
-# GitHub Actions builds and publishes the ISO automatically
 ```
 
----
-
-## 🎤 AI Assistant Commands
+## 🎤 AI Commands
 
 | Command | Example |
 |---------|---------|
 | Search | "search for best laptops" |
 | Alternatives | "alternatives for Notion" |
 | Open app | "open browser" |
-| Run command | "run df -h" |
+| Run | "run df -h" |
 | System info | "system status" |
 | Time | "what time is it?" |
-| Lock | "lock screen" |
-| Install | "install nexusos" |
 
-AI API: `curl http://127.0.0.1:5210/status`
-
----
+API: `curl http://127.0.0.1:5210/status`
 
 ## 📜 License
 
-MIT License — free for everyone to use, modify, and distribute.
-
----
+MIT License. The Linux kernel remains under GPL v2.
 
 ## ⚠️ Disclaimer
 
-Tor routing may be illegal in some jurisdictions. Check your local laws. NexusOS is provided as-is without warranty.
+Tor routing may be illegal in some jurisdictions. Check local laws.
 
 ---
 
