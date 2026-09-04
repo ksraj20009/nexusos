@@ -1,12 +1,12 @@
 #!/bin/bash
-# NexusOS Privacy Hardening
+# Vajra OS Privacy Hardening
 set -e
-echo "◆ NexusOS Privacy Hardening"
+echo "◆ Vajra OS Privacy Hardening"
 if [[ $EUID -ne 0 ]]; then echo "Run as root"; exit 1; fi
 
 # Telemetry off
 mkdir -p /etc/firefox/syspref.js.d
-cat > /etc/firefox/syspref.js.d/nexusos.js << 'EOF'
+cat > /etc/firefox/syspref.js.d/vajra.js << 'EOF'
 pref("datareporting.policy.dataSubmissionEnabled", false);
 pref("toolkit.telemetry.enabled", false);
 pref("browser.privatebrowsing.autostart", true);
@@ -17,7 +17,7 @@ pref("media.peerconnection.enabled", false);
 EOF
 
 # Kernel hardening
-cat > /etc/sysctl.d/99-nexusos.conf << 'EOF'
+cat > /etc/sysctl.d/99-vajra.conf << 'EOF'
 net.ipv6.conf.all.use_tempaddr = 2
 net.ipv4.ip_forward = 0
 net.ipv4.conf.all.rp_filter = 1
@@ -33,7 +33,7 @@ sysctl --system > /dev/null 2>&1
 
 # MAC randomization
 mkdir -p /etc/NetworkManager/conf.d
-cat > /etc/NetworkManager/conf.d/nexusos-mac.conf << 'EOF'
+cat > /etc/NetworkManager/conf.d/vajra-mac.conf << 'EOF'
 [device]
 wifi.scan-rand-mac-address=yes
 [connection]
@@ -53,11 +53,11 @@ for svc in avahi-daemon cups bluetooth; do systemctl disable $svc 2>/dev/null ||
 
 # SSH hardening
 mkdir -p /etc/ssh/sshd_config.d
-cat > /etc/ssh/sshd_config.d/nexusos.conf << 'EOF'
+cat > /etc/ssh/sshd_config.d/vajra.conf << 'EOF'
 PermitRootLogin no
 PasswordAuthentication no
 MaxAuthTries 3
-AllowUsers nexus
+AllowUsers vajra
 EOF
 
 # Encrypted DNS
