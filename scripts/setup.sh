@@ -1,7 +1,7 @@
 #!/bin/bash
-# NexusOS Installer Launcher
+# Vajra OS Installer Launcher
 set -e
-echo "◆ NexusOS Installer"
+echo "◆ Vajra OS Installer"
 if [[ $EUID -ne 0 ]]; then exec sudo "$0" "$@"; fi
 if command -v calamares &>/dev/null; then
     calamares
