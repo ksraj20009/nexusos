@@ -1,22 +1,45 @@
 FROM debian:trixie
-LABEL maintainer="ksraj20009"
-LABEL description="NexusOS - Privacy-first, AI-powered Linux"
+
+LABEL org.opencontainers.image.title="Vajra OS"
+LABEL org.opencontainers.image.description="वज्र OS — Privacy-first, AI-powered Linux OS"
+LABEL org.opencontainers.image.version="1.0"
+LABEL org.opencontainers.image.license="MIT"
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV VAJRA_VERSION=1.0
+ENV USER=vajra
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    systemd sudo gnupg wget curl ca-certificates apt-transport-https \
-    python3 python3-pip python3-requests network-manager tor firewalld \
-    git nano htop neofetch \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gdm3 gnome-core gnome-terminal nautilus firefox-esr \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-RUN mkdir -p /opt/nexusos/{ai,privacy,desktop,scripts,config} /etc/nexusos
-COPY ai/ /opt/nexusos/ai/
-COPY privacy/ /opt/nexusos/privacy/
-COPY scripts/ /opt/nexusos/scripts/
-RUN chmod +x /opt/nexusos/ai/*.py /opt/nexusos/scripts/*.sh /opt/nexusos/privacy/*.sh
-RUN echo '#!/bin/bash\nexec python3 /opt/nexusos/ai/nexus-ai.py "$@"' > /usr/bin/nexus-ai && chmod +x /usr/bin/nexus-ai
-RUN useradd -m -s /bin/bash -G sudo,netdev,plugdev,audio,video nexus && echo "nexus:nexus" | chpasswd && echo "nexus ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nexus
-RUN echo "nexusos" > /etc/hostname
-RUN mkdir -p /etc/gdm3 && echo '[daemon]\nWaylandEnable=true\nAutomaticLoginEnable=true\nAutomaticLogin=nexus\n[security]\nDisallowRoot=true' > /etc/gdm3/daemon.conf
+    python3 python3-pip python3-requests \
+    tor firewalld apparmor \
+    curl wget git htop neofetch \
+    espeak-ng xclip brightnessctl \
+    network-manager \
+    sudo locales \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN sed -i '/en_IN.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+
+RUN useradd -m -s /bin/bash -G sudo,audio,video $USER \
+    && echo "$USER:$USER" | chpasswd \
+    && echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER
+
+RUN mkdir -p /opt/vajra/{ai,privacy,scripts,apps,branding}
+
+COPY ai/buddhi-ai.py /opt/vajra/ai/buddhi-ai.py
+COPY ai/buddhi-ai.service /etc/systemd/system/buddhi-ai.service
+COPY privacy/ /opt/vajra/privacy/
+COPY scripts/ /opt/vajra/scripts/
+COPY apps/ /opt/vajra/apps/
+
+RUN chmod +x /opt/vajra/ai/*.py /opt/vajra/scripts/*.sh /opt/vajra/privacy/*.sh /opt/vajra/apps/*.sh 2>/dev/null || true
+
+RUN ln -sf /opt/vajra/ai/buddhi-ai.py /usr/bin/buddhi
+
+RUN echo "vajra" > /etc/hostname
+
+WORKDIR /home/vajra
+USER vajra
+
 EXPOSE 5210
-CMD ["/lib/systemd/systemd"]
+ENTRYPOINT ["python3", "/opt/vajra/ai/buddhi-ai.py", "--service"]
