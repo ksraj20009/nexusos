@@ -1,0 +1,164 @@
+/*
+ * =============================================================
+ * Vajra OS — Custom GTK Theme
+ * Vajra (वज्र) — Thunderbolt Strong. Unbreakable.
+ * Deep blue + gold accent — inspired by Indra's Vajra
+ * =============================================================
+ */
+
+/* --- Color Palette --- */
+@define-color vajra_gold        #FFD700;
+@define-color vajra_gold_dark    #B8860B;
+@define-color vajra_blue        #0A1628;
+@define-color vajra_blue_light   #1A2F4E;
+@define-color vajra_blue_mid     #152538;
+@define-color vajra_accent       #FFC107;
+@define-color vajra_text         #E8E8E8;
+@define-color vajra_text_dim     #A0A0A0;
+@define-color vajra_success      #4CAF50;
+@define-color vajra_warning      #FF9800;
+@define-color vajra_error         #F44336;
+@define-color vajra_bg           #0A1628;
+@define-color vajra_bg_light     #1A2F4E;
+@define-color vajra_border       #2A3F5E;
+
+/* --- Default Window --- */
+window {
+    background-color: @vajra_bg;
+    color: @vajra_text;
+    font-family: "Vajra Sans", "Cantarell", "Ubuntu", sans-serif;
+    font-size: 11pt;
+}
+
+/* --- Header Bar --- */
+headerbar {
+    background: linear-gradient(to bottom, @vajra_blue_light, @vajra_blue);
+    color: @vajra_gold;
+    border-bottom: 1px solid @vajra_gold_dark;
+    padding: 6px 12px;
+    min-height: 42px;
+}
+
+headerbar:backdrop {
+    background: @vajra_blue_mid;
+    color: @vajra_text_dim;
+}
+
+headerbar .title { font-weight: bold; color: @vajra_gold; }
+headerbar .subtitle { font-size: 9pt; color: @vajra_text_dim; }
+
+/* --- Buttons --- */
+button {
+    background: linear-gradient(to bottom, @vajra_blue_light, @vajra_blue_mid);
+    color: @vajra_text;
+    border: 1px solid @vajra_border;
+    border-radius: 6px;
+    padding: 6px 16px;
+    transition: all 0.2s ease;
+}
+button:hover {
+    background: linear-gradient(to bottom, @vajra_gold_dark, @vajra_gold);
+    color: @vajra_blue;
+    border-color: @vajra_gold;
+}
+button:active { background: @vajra_gold; color: @vajra_blue; }
+button.suggested-action { background: @vajra_gold; color: @vajra_blue; font-weight: bold; }
+button.suggested-action:hover { background: @vajra_accent; }
+button.destructive-action { background: @vajra_error; color: white; }
+button.destructive-action:hover { background: #D32F2F; }
+
+/* --- Entries --- */
+entry {
+    background: @vajra_blue_mid;
+    color: @vajra_text;
+    border: 1px solid @vajra_border;
+    border-radius: 4px;
+    padding: 6px 10px;
+    caret-color: @vajra_gold;
+}
+entry:focus { border-color: @vajra_gold; box-shadow: 0 0 3px @vajra_gold; }
+entry selection { background: @vajra_gold; color: @vajra_blue; }
+
+/* --- Notebook (Tabs) --- */
+notebook > header { background: @vajra_blue_mid; border-bottom: 1px solid @vajra_border; }
+notebook tab { background: transparent; color: @vajra_text_dim; padding: 8px 16px; border-radius: 4px 4px 0 0; }
+notebook tab:checked { background: @vajra_blue; color: @vajra_gold; border-bottom: 2px solid @vajra_gold; }
+notebook tab:hover { color: @vajra_text; }
+
+/* --- Sidebar --- */
+sidebar, placessidebar { background: @vajra_blue_mid; color: @vajra_text_dim; border-right: 1px solid @vajra_border; }
+sidebar row:selected { background: @vajra_blue_light; color: @vajra_gold; }
+
+/* --- Treeview --- */
+treeview.view { background: @vajra_bg; color: @vajra_text; }
+treeview.view:selected { background: @vajra_gold_dark; color: white; }
+treeview.view:hover { background: @vajra_blue_light; }
+
+/* --- Scrollbars --- */
+scrollbar { background: transparent; }
+scrollbar slider { background: @vajra_border; border-radius: 4px; min-width: 8px; min-height: 8px; }
+scrollbar slider:hover { background: @vajra_gold_dark; }
+
+/* --- Menus --- */
+menu, .menu { background: @vajra_blue_mid; color: @vajra_text; border: 1px solid @vajra_border; border-radius: 4px; }
+menuitem { padding: 6px 14px; }
+menuitem:hover { background: @vajra_gold_dark; color: @vajra_blue; }
+
+/* --- Tooltips --- */
+tooltip { background: @vajra_blue; color: @vajra_gold; border: 1px solid @vajra_gold_dark; border-radius: 4px; padding: 6px 10px; font-size: 10pt; }
+
+/* --- Progress Bars --- */
+progressbar trough { background: @vajra_blue_mid; border-radius: 4px; min-height: 6px; }
+progressbar progress { background: linear-gradient(to right, @vajra_gold_dark, @vajra_gold); border-radius: 4px; }
+
+/* --- Checkboxes --- */
+check, radio { background: @vajra_blue_mid; border: 2px solid @vajra_border; border-radius: 3px; min-width: 16px; min-height: 16px; }
+check:checked, radio:checked { background: @vajra_gold; border-color: @vajra_gold; }
+
+/* --- Switches --- */
+switch { background: @vajra_blue_mid; border-radius: 14px; min-width: 44px; min-height: 24px; }
+switch:checked { background: @vajra_gold; }
+switch slider { background: @vajra_text; border-radius: 50%; }
+
+/* --- Popovers --- */
+popover.background { background: @vajra_blue_mid; color: @vajra_text; border: 1px solid @vajra_border; border-radius: 6px; }
+
+/* --- Info Bars --- */
+infobar { border-radius: 4px; }
+infobar.info { background: @vajra_blue_light; color: @vajra_text; }
+infobar.warning { background: @vajra_warning; color: @vajra_blue; }
+infobar.error { background: @vajra_error; color: white; }
+
+/* --- Statusbar --- */
+statusbar { background: @vajra_blue_mid; color: @vajra_text_dim; border-top: 1px solid @vajra_border; }
+
+/* --- Window Decorations --- */
+window.csd { border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+window.csd:backdrop { box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+/* --- Spinner --- */
+spinner { color: @vajra_gold; }
+
+/* --- Calendar --- */
+calendar { background: @vajra_bg; color: @vajra_text; border: 1px solid @vajra_border; }
+calendar:selected { background: @vajra_gold; color: @vajra_blue; }
+calendar.header { color: @vajra_gold; border-bottom: 1px solid @vajra_border; }
+
+/* --- Dialogs --- */
+dialog { background: @vajra_bg; color: @vajra_text; }
+dialog .dialog-action-area button { min-width: 80px; }
+
+/* --- List boxes --- */
+listbox row { padding: 8px 12px; }
+listbox row:selected { background: @vajra_blue_light; color: @vajra_gold; }
+
+/* --- Search bars --- */
+searchbar { background: @vajra_blue_mid; border-bottom: 1px solid @vajra_border; }
+
+/* --- BEGINNER MODE overrides (larger touch targets) --- */
+.beginner-mode button { min-height: 44px; min-width: 120px; font-size: 14pt; }
+.beginner-mode entry { min-height: 36px; font-size: 13pt; }
+.beginner-mode .large-icon { -gtk-icon-size: 64px; }
+
+/* --- PRO MODE overrides (compact) --- */
+.pro-mode button { min-height: 28px; padding: 4px 10px; font-size: 10pt; }
