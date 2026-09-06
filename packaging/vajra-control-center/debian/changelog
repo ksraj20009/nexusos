@@ -1,0 +1,5 @@
+vajra-control-center (1.0.0) vajra; urgency=medium
+
+  * Initial release — Vajra OS Control Center with 12 settings sections
+
+ -- Vajra OS Team <packages@vajra-os.org>  Sat, 06 Sep 2026 08:59:00 +0000
