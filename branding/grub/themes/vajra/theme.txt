@@ -1,0 +1,54 @@
+# ============================================================================
+# Vajra OS — GRUB Bootloader Theme
+# ============================================================================
+# This is installed to /boot/grub/themes/vajra/theme.txt
+# It defines the visual appearance of the GRUB boot menu.
+# ============================================================================
+
+desktop-image: "background.png"
+title-text: "वज्र OS (Vajra OS)"
+title-color: "#e94560"
+title-font: "DejaVu Sans Bold 24"
+
+terminal-box: "terminal_box_*.png"
+terminal-font: "DejaVu Sans Mono 12"
+
++ boot_menu {
+    left = 15%
+    top = 30%
+    width = 70%
+    height = 40%
+    item_font = "DejaVu Sans 16"
+    item_color = "#ffffff"
+    selected_item_color = "#e94560"
+    selected_item_pixmap_style = "selected_item_*.png"
+    item_height = 30
+    item_spacing = 5
+    icon_width = 0
+    icon_height = 0
+    item_pixmap_style = "item_*.png"
+}
+
++ label {
+    text = "Use arrow keys to select, Enter to boot"
+    color = "#a3a3a3"
+    font = "DejaVu Sans 12"
+    left = 15%
+    top = 75%
+}
+
++ label {
+    text = "धर्मो रक्षति रक्षितः"
+    color = "#5c5c5c"
+    font = "DejaVu Sans 14"
+    left = 35%
+    top = 85%
+}
+
++ label {
+    text = "Vajra OS 1.0 — India's Privacy-First AI-Powered Operating System"
+    color = "#444444"
+    font = "DejaVu Sans 10"
+    left = 15%
+    top = 92%
+}
