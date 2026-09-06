@@ -1,0 +1,1 @@
+deb [signed-by=/usr/share/keyrings/vajra-archive-keyring.gpg] https://repo.vajra-os.org vajra main contrib non-free
