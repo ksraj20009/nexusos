@@ -14,7 +14,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev bc cpio kmod wget git
-      - name: Clone Linux kernel from torvalds/linux
+      - name: Clone kernel source
         run: |
           git clone --depth=1 --branch v6.10 https://github.com/torvalds/linux.git kernel/linux
       - name: Apply Vajra OS patches
@@ -138,20 +138,24 @@ jobs:
           files: vajra-lb/vajra-os-1.0-amd64.iso*
           body: |
             # वज्र OS — Vajra OS 1.0
-            
-            Privacy-first, AI-powered Linux OS built on the real Linux kernel.
-            
+
+            Privacy-first, AI-powered operating system. Built with its own custom kernel and branding.
+
             ## Download & Install
             1. Download the ISO
             2. Flash to USB (Rufus on Windows, dd on Linux/Mac)
             3. Boot from USB
             4. Click "Install Vajra OS"
-            
+
             ## Features
-            - 🤖 Buddhi AI — Agentic assistant with voice control
-            - 🛡 Tor transparent proxy — All traffic anonymized
-            - 🔒 Privacy hardened — AppArmor, firewall, MAC randomization
-            - 🎤 Voice commands — Say "Buddhi" then speak
-            - 🧠 Local LLM — Ollama powered, fully offline
-            
+            - Buddhi AI — Agentic assistant with voice control
+            - Tor transparent proxy — All traffic anonymized (optional)
+            - Privacy hardened — AppArmor, firewall, MAC randomization
+            - Voice commands — Say "Buddhi" then speak
+            - Local LLM — Ollama powered, fully offline
+            - Beginner & Pro modes
+            - Indian language support (12 languages)
+            - Vedic math, festival calendar, Ayurveda reminders
+            - Cybersecurity tools with ethical usage guides
+
             धर्मो रक्षति रक्षितः
