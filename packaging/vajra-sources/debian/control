@@ -1,0 +1,18 @@
+Source: vajra-sources
+Section: admin
+Priority: important
+Maintainer: Vajra OS Team <packages@vajra-os.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://vajra-os.org
+
+Package: vajra-sources
+Architecture: all
+Depends: ${misc:Depends}, vajra-keyring
+Description: Vajra OS APT sources.list configuration
+ Configures apt to use the Vajra OS package repository.
+ Installs /etc/apt/sources.list.d/vajra.list pointing to the Vajra OS
+ repository with GPG signature verification via the vajra-keyring package.
+ .
+ After installation, users can run 'apt update' to fetch the Vajra OS
+ package catalog and install Vajra tools with 'apt install vajra-*'.
