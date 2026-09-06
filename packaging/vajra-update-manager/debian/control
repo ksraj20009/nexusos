@@ -1,0 +1,24 @@
+Source: vajra-update-manager
+Section: admin
+Priority: optional
+Maintainer: Vajra OS Team <packages@vajra-os.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://vajra-os.org
+
+Package: vajra-update-manager
+Architecture: all
+Depends: ${misc:Depends}, python3, apt, dpkg
+Recommends: timeshift, unattended-upgrades
+Description: Vajra OS Update Manager — check, install, rollback with snapshots
+ Update manager for Vajra OS with pre-update snapshots and rollback support.
+ .
+ Features:
+  * Check for available updates
+  * Install updates with automatic pre-update snapshot
+  * Rollback to previous state from snapshot
+  * Kernel-specific update support
+  * Update history log
+  * Automatic update configuration (security or full)
+  * System cleanup (unused packages, cache, logs)
+  * Manual snapshot creation
