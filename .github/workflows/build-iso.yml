@@ -1,9 +1,9 @@
-name: Build NexusOS ISO
+name: Build Vajra OS ISO
 
 on:
   push:
     tags:
-      - 'v*'
+    - 'v*'
   workflow_dispatch:
     inputs:
       version:
@@ -21,7 +21,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y debootstrap squashfs-tools xorriso grub-pc-bin grub-efi-amd64-bin mtools dosfstools isolinux syslinux-common live-build debian-archive-keyring
-      - name: Build NexusOS ISO
+      - name: Build Vajra OS ISO
         working-directory: live-build
         run: |
           chmod +x auto/config
@@ -30,19 +30,19 @@ jobs:
           VERSION="${{ github.event.inputs.version || '1.0' }}"
           for f in *.hybrid.iso *.iso; do
             if [ -f "$f" ]; then
-              mv "$f" "nexusos-${VERSION}-amd64.iso"
+              mv "$f" "vajra-os-${VERSION}-amd64.iso"
               break
             fi
           done
-          if [ -f "nexusos-${VERSION}-amd64.iso" ]; then
-            sha256sum "nexusos-${VERSION}-amd64.iso" > "nexusos-${VERSION}-amd64.iso.sha256"
+          if [ -f "vajra-os-${VERSION}-amd64.iso" ]; then
+            sha256sum "vajra-os-${VERSION}-amd64.iso" > "vajra-os-${VERSION}-amd64.iso.sha256"
             echo "BUILD_SUCCESS=true" >> $GITHUB_ENV
           fi
       - name: Upload ISO artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nexusos-iso
+          name: vajra-os-iso
           path: live-build/*.iso
           retention-days: 90
       - name: Create Release
@@ -50,10 +50,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            live-build/nexusos-*-amd64.iso
-            live-build/nexusos-*-amd64.iso.sha256
+            live-build/vajra-os-*-amd64.iso
+            live-build/vajra-os-*-amd64.iso.sha256
           body: |
-            ## NexusOS Download
+            ## Vajra OS Download
             1. Download the ISO file
             2. Flash to USB (use Rufus on Windows, dd on Linux/Mac)
             3. Boot from USB
