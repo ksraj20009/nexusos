@@ -1,265 +1,199 @@
-# ◆ वज्र OS — Vajra OS
+# वज्र OS (Vajra OS)
 
-**A privacy-first, AI-powered operating system. Built from the ground up.**
+**India's Privacy-First AI-Powered Operating System**
 
-> धर्मो रक्षति रक्षितः — Dharma protects those who protect it.
+वज्र OS is a complete, AI-powered operating system designed for India. Built with privacy at its core, it runs Buddhi AI (बुद्धि) locally — no cloud, no tracking, no telemetry.
 
-## What Is Vajra OS?
+## Features
 
-Vajra OS (वज्र — the divine, indestructible thunderbolt of Indra) is a complete operating system with a custom-built hardened kernel, GNOME desktop, agentic AI assistant, and Tor privacy built in.
+### Buddhi AI (बुद्धि)
+- Agentic AI assistant with voice control (18+ voice commands)
+- Natural language terminal — type in plain English/Hindi
+- AI app integration (alarms, search, system control)
+- AI settings panel — toggle features on/off
+- Privacy-first: all AI runs locally, no data leaves your machine
 
-Vajra OS is its own operating system — with a custom kernel configuration, custom branding, custom AI engine, and a full suite of privacy and productivity tools. Every component is built and configured specifically for Vajra.
+### Indian Features
+- **Panchang** — Hindu calendar with tithi, nakshatra, yoga
+- **GST Calculator** — CGST/SGST/IGST computation
+- **IRCTC Train Status** — live Indian Railways train checker
+- **News Aggregator** — 8 Indian news sources
+- **Ayurveda Database** — 10 herbs, 10 remedies
+- **Yoga Timer** — 8 asanas, 3 pranayama techniques
+- **Vedic Math Trainer** — 6 ancient Indian math tricks
+- **Festival Calendar** — 20 Indian festivals with dates and descriptions
+- **Indic Keyboards** — 12 Indian languages
+- **Rupee Symbol Input** — 4 methods to type ₹
+- **Indian Date Format** — dd/mm/yyyy
 
-## 📥 Download & Install
+### Security Suite (20+ tools)
+- Pentest menu (nmap, metasploit, wireshark, john, sqlmap, etc.)
+- Security dashboard with scoring
+- Intrusion detection (fail2ban + AIDE)
+- VPN manager (WireGuard + OpenVPN)
+- Steganography tool
+- Malware analysis sandbox
+- Secure Boot configuration
+- Social Engineering Toolkit (educational)
+- Cyber Academy — 17 interactive ethical hacking lessons
+- Indian IT Act 2000 sections included
 
-### For Users (No Technical Knowledge Needed)
+### Privacy
+- Encrypted cloud backup (rclone + GPG)
+- Password manager (KeePassXC + Bitwarden)
+- Secure file shredder (3-pass overwrite)
+- Browser privacy setup (Firefox pre-configured)
+- GPG/PGP email encryption
+- Tor optional — 10 pros and 10 cons shown before enabling
+- Every download shows app info, permissions, pros/cons before proceeding
 
-1. Go to [Releases](https://github.com/ksraj20009/nexusos/releases)
-2. Download `vajra-os-1.0-amd64.iso`
-3. Flash to USB drive:
-   - **Windows**: Use [Rufus](https://rufus.ie/)
-   - **Mac**: Use [Balena Etcher](https://etcher.balena.io/)
-4. Boot from USB
-5. Click "Install Vajra OS"
+### Built-in Apps
+- Weather (15 Indian cities)
+- Notes with tags and search
+- System monitor (CPU, RAM, disk, battery)
+- Calendar with Indian holidays
+- File manager
+- Email client setup (Gmail, Yahoo, Outlook)
+- Screenshot tool (full screen, window, area, delayed)
+- Battery monitor with low-battery alerts
+- Disk usage analyzer with cleanup suggestions
+- Task manager (process management)
+- PDF reader (Evince, Okular, Zathura)
+- Media converter (FFmpeg wrapper — 6 modes)
 
-### System Requirements
-- 2GB+ RAM (4GB recommended)
-- 15GB+ disk space
-- x86_64 processor
-- 4GB+ USB drive
+### Developer Tools
+- VS Code setup with 8 extensions
+- Git setup with SSH keys and aliases
+- Docker setup with 7 pre-pulled images
+- Python environment (pipenv, poetry, black, jupyter, Flask, Django, FastAPI)
+- Node.js setup (nvm, Node 20 LTS, TypeScript, ESLint, PM2, Yarn, pnpm)
+- IDE quickstart — 5 one-click profiles (Python, Web, C/C++, Java, Full Stack)
+- Enhanced terminal (zsh + oh-my-zsh + 13 Vajra aliases)
+- Debugger tools (pdb, GDB, strace, ltrace, valgrind, perf)
 
-## 🤖 Buddhi AI — Agentic Assistant
+### Gaming
+- Steam setup with Proton for Windows games
+- RetroArch (NES, SNES, Genesis, GameBoy, PS1, N64)
+- Wine for Windows app compatibility
+- Heroic Games Launcher (Epic/GOG)
+- Game mode — CPU performance optimizer
 
-Buddhi (बुद्धि — Supreme Intelligence) is the built-in AI that can:
+### System Management
+- Backup manager (full system + home, rsync, scheduled cron)
+- Update manager (check, install, full update, rollback)
+- Service manager (systemd wrapper)
+- Cron manager (view/add/remove scheduled tasks)
+- Log viewer (system, auth, kernel, boot, Vajra logs)
+- Package manager (search, install, remove, update, .deb)
+- Disk manager (list, format, mount, unmount, swap, SMART)
+- Boot manager (GRUB entries, default, timeout, reinstall)
+- User manager (add, remove, passwords, sudo group)
 
-### Agentic Tasks (Multi-step Autonomous)
-- `install vlc` — Plans: checks → installs → verifies
-- `update system` — Updates packages, cleans up
-- `security scan` — Firewall, logins, ports, updates
-- `clean up disk` — Cache, temp, trash, disk check
-- `backup my files` — Creates tarball backup
-- `optimize system` — Process analysis, cache clear
-- `enable tor` — Starts Tor + configures transparent proxy
+### Unique Features
+- **Vedic Math Trainer** — learn ancient Indian mental math
+- **Festival Calendar** — all Indian festivals with descriptions
+- **Startup Tips** — 20 tips shown on every login
+- **Health Reminders** — 7 daily Ayurveda-based notifications
+- **Enhanced Accessibility** — 10 options (screen reader, magnifier, sticky keys, etc.)
+- **Kids Mode** — safe environment with blocked sites and time limits
+- **Senior Mode** — large text 1.5x, high contrast, voice control
+- **Productivity Mode** — focus mode (block social media), Pomodoro timer
 
-### Voice Control
-- Wake word: **"Buddhi"** — Say it, then speak your command
-- Continuous mode: No wake word needed
-- Text-to-speech responses (espeak-ng)
-- Fully offline (Vosk model)
+### Network
+- Network manager (Wi-Fi, hotspot, diagnostics, DNS, IP)
+- Firewall configuration (UFW wrapper)
+- Bandwidth monitor (real-time traffic)
+- DNS cache flush
+- Proxy setup (HTTP/HTTPS/SOCKS)
 
-### Natural Language Shell
-- `execute show me disk usage` → translates to `df -h` via LLM
-- `execute find large files` → translates to `find / -type f -size +100M`
+### Infrastructure
+- ISO build script (live-build, bootable ISO)
+- Docker support (Dockerfile + docker-compose with 3 services)
+- CI/CD pipeline (GitHub Actions — syntax check, ISO build, Docker build)
+- Installation script (8-step installer for Debian/Ubuntu)
+- VM image creation (QEMU, VirtualBox, VMware)
+- Live USB creator (dd with confirmation)
+- Uninstall script (safely removes Vajra, keeps user data)
+- Makefile (test, build-iso, build-docker, install, clean, usb, run-docker, run-qemu)
+- Release notes
 
-### System Control
-- Open/close apps: `open browser`, `close firefox`
-- Run commands: `run df -h`
-- File operations: `list files /home`, `read file /etc/hostname`
-- Volume: `set volume to 50%`, `mute`, `unmute`
-- Brightness: `set brightness to 80%`
-- Screenshot, clipboard, lock screen
-- Process management: `running processes`, `kill firefox`
+## Two Modes
 
-### Web & Research
-- `search for AI news` — DuckDuckGo + Wikipedia
-- `alternatives for Notion` — Software alternatives
-- `summarize quantum computing` — Multi-source summary
+### Beginner Mode
+- Large icons, simple interface
+- Safety guardrails — sudo blocked
+- Only essential apps shown
+- AI assistance always available
 
-### Security Guardian
-- Auto-monitors firewall, failed logins, open ports
-- Auto-fixes issues (enables firewall if off)
-- Full security scan on demand
+### Pro Mode
+- Full system access
+- Developer tools unlocked
+- Root shell available
+- All features visible
 
-### Local LLM (Ollama)
-- Fully offline AI reasoning
-- Natural language → shell command translation
-- Context-aware conversations
-- Model: llama3.2
+## Download & Install
 
-### REST API
-- `GET /status` — System + AI status
-- `POST /query` — Send a command
-- `POST /agentic` — Trigger multi-step task
-- `POST /voice/start` — Start voice listening
-- `POST /voice/continuous` — Enable continuous mode
-- `POST /security/scan` — Run security scan
-- `POST /install` — Install a package
-- `POST /run` — Run a shell command
-- `POST /search` — Web search
+### Option 1: ISO (Recommended)
+1. Download `vajra-os-latest.iso` from Releases
+2. Write to USB: `dd if=vajra-os.iso of=/dev/sdX bs=4M status=progress`
+3. Boot from USB and follow installer
 
-## 🛡 Privacy Suite
+### Option 2: Docker
+```bash
+docker pull vajra/os:latest
+docker run -it --rm -p 8080:8080 vajra/os:latest
+```
 
-- **Tor transparent proxy** — All traffic routed through Tor
-- **Encrypted DNS** — DoH/DoT, DNSSEC
-- **MAC address randomization** — Every network connection
-- **Firewall** — Drop zone (no incoming connections)
-- **Firefox hardened** — No telemetry, fingerprinting resistance
-- **Kernel hardening** — ASLR, kptr restrict, dmesg restrict
-- **SSH hardening** — Key-only, root login disabled
+### Option 3: Install Script (on existing Debian/Ubuntu)
+```bash
+sudo bash infrastructure/vajra-install-script.sh
+```
 
-## 🔧 Vajra Kernel
+## Quick Commands
 
-The Vajra kernel is a custom-hardened kernel built specifically for Vajra OS:
-- Security: AppArmor, YAMA, lockdown, kernel ASLR, module signing
-- Privacy: Network namespaces (Tor), strong crypto (AES, SHA512, XTS)
-- Virtualization: Full Docker/container support (cgroups, namespaces, overlayfs)
-- Filesystem: Btrfs, EXT4, F2FS, OverlayFS, SquashFS
-- Branding: `vajra` hostname, custom version string
+| Command | Description |
+|---------|-------------|
+| `vj-ai` | Start Buddhi AI assistant |
+| `vj-voice` | Start voice control |
+| `vj-sec` | Security suite |
+| `vj-weather` | Weather (15 Indian cities) |
+| `vj-panchang` | Hindu calendar |
+| `vj-gst` | GST calculator |
+| `vj-train` | IRCTC train status |
+| `vj-news` | Indian news headlines |
+| `vj-yoga` | Yoga timer |
+| `vj-ayurveda` | Ayurveda database |
+| `vj-vedic` | Vedic math trainer |
+| `vj-update` | System update |
+| `vj-backup` | Backup manager |
 
-## 🎨 Desktop & Features
-
-### Beginner / Pro Mode
-- **Beginner Mode**: Large icons, simplified menus, safety guardrails (no dangerous commands, sudo blocked), Buddhi AI voice guidance
-- **Pro Mode**: Full terminal access, advanced settings, developer tools, root shell
-
-### Spotlight Search (Ctrl+Space)
-- Search apps, files, web, and do math — all from one popup
-
-### Task Manager
-- View and kill processes like Windows Task Manager
-
-### Control Center
-- 18 categories of settings in one unified hub
-
-### Window Tiling
-- Snap windows left/right/top/bottom/fullscreen/grid
-
-### App Store
-- Curated categories: Browsers, Office, Media, Graphics, Development, Communication, Games
-- One-click install via apt/flatpak/snap
-
-### System Restore
-- Create and restore system restore points
-
-### Device Manager
-- Hardware info, temperatures, SMART disk health, benchmarks
-
-### Event Viewer
-- System logs, errors, warnings, kernel events, auth logs
-
-## 🧘 Unique Vajra Features
-
-- **Vedic Calculator** — Ancient Indian math shortcuts (Urdhva Tiryagbhyam, Ekadhikena Purvena, digital root verification)
-- **Ayurvedic Health Reminders** — Dinacharya (daily routine), yoga breaks, 20-20-20 eye care, water reminders, posture checks
-- **Indian Festival Calendar** — All major festivals 2025-2026 with dates and descriptions
-- **Night Light** — Blue light filter, auto ON at 8 PM, OFF at 6 AM
-- **Clipboard Manager** — History of copied items (like Win+V)
-- **Quick Launch** — Dock with favorites, search, recent documents
-- **11 Indian Languages** — Hindi, Tamil, Bengali, Telugu, Kannada, Malayalam, Gujarati, Punjabi, Marathi, Odia, Sanskrit
-- **Sanskrit Fonts** — Noto Sans Devanagari and more
-
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 nexusos/
-├── kernel/
-│   ├── configs/
-│   │   └── vajra.config           # Custom kernel config (80+ settings)
-│   └── patches/
-│       └── 0001-vajra-branding.patch
-├── ai/
-│   ├── buddhi-ai.py                # Agentic AI engine (52KB)
-│   ├── vedic-calculator.py          # Vedic math calculator
-│   └── buddhi-ai.service           # Systemd service
-├── privacy/
-│   ├── torrc                        # Tor configuration
-│   ├── setup-tor-proxy.sh           # Transparent Tor proxy
-│   ├── harden.sh                    # 8-step privacy hardening
-│   ├── privacy-dashboard.sh         # Live privacy monitoring
-│   └── vajra-tor.service            # Systemd service
-├── desktop/
-│   ├── mode-switcher.sh             # Beginner/Pro mode switcher
-│   ├── spotlight-search.sh          # Universal search (Ctrl+Space)
-│   ├── task-manager.sh              # Process manager
-│   ├── control-center.sh            # Unified settings hub
-│   ├── startup-manager.sh           # Boot application manager
-│   ├── clipboard-manager.sh        # Clipboard history
-│   ├── window-tiler.sh              # Window snap/tiling
-│   ├── quick-launch.sh              # App dock/launcher
-│   ├── night-light.sh              # Blue light filter
-│   ├── notification-daemon.sh       # System notifications
-│   ├── color-picker.sh             # Screen color picker
-│   └── desktop-suite.sh            # Desktop shortcuts & themes
-├── system/
-│   ├── system-restore.sh            # Restore point manager
-│   ├── device-manager.sh            # Hardware device manager
-│   ├── event-viewer.sh             # System event logs
-│   ├── performance-suite.sh         # Benchmark & optimizer
-│   ├── update-manager.sh            # Smart update manager
-│   ├── backup-manager.sh            # Backup with encryption
-│   ├── parental-controls.sh         # Screen time & app blocking
-│   ├── container-manager.sh         # Docker/Podman manager
-│   ├── font-manager.sh             # Font manager (Indic fonts)
-│   ├── screen-recorder.sh          # Screen recording with audio
-│   ├── printer-suite.sh            # Printer & scanner management
-│   ├── power-manager.sh            # Battery & power profiles
-│   ├── health-reminder.sh           # Ayurveda & yoga reminders
-│   ├── boot-animation.sh            # Custom boot animation
-│   ├── kiosk-mode.sh               # Single-app lockdown
-│   └── system-suite.sh             # Restore points, disk, drivers
-├── developer/
-│   └── developer-suite.sh           # Dev tools & project scaffolding
-├── network/
-│   ├── bluetooth-suite.sh           # Bluetooth management
-│   ├── network-suite.sh             # VPN, firewall, bandwidth
-│   └── ...
-├── apps/
-│   ├── app-store.sh                 # Curated app store
-│   └── app-suite.sh                # Flatpak, Vaultwarden, Firefox
-├── locale/
-│   ├── festival-calendar.py         # Indian festival calendar
-│   └── locale-suite.sh             # 11 Indian languages
-├── gaming/
-│   └── gaming-suite.sh              # Steam, RetroArch, Jellyfin
-├── security/
-│   └── security-suite.sh            # Firejail, LUKS, DNS sinkhole
-├── docker/
-│   ├── Dockerfile                    # Vajra OS Docker image
-│   └── docker-compose.yml           # Multi-service compose
-├── .github/workflows/
-│   └── build.yml                    # CI/CD: kernel + ISO build
-└── README.md
+├── ai/              # Buddhi AI engine, voice control, NLP terminal
+├── apps/            # Weather, notes, calendar, GST, IRCTC, news, etc.
+├── desktop/         # GTK theme, icons, wallpaper, window manager
+├── developer/       # VS Code, Git, Docker, Python, Node.js, debugger
+├── gaming/          # Steam, RetroArch, Wine, game mode
+├── infrastructure/  # ISO build, Docker, CI/CD, install scripts
+├── locale/          # Panchang, Ayurveda, yoga, keyboards, Indic input
+├── network/         # Network manager, firewall, bandwidth, proxy
+├── privacy/         # Encryption, password manager, shredder, browser
+├── security/        # Pentest, IDS, VPN, steganography, malware sandbox
+├── system/          # Backup, update, services, cron, logs, boot, users
+└── unique/          # Vedic math, festivals, health, kids/senior/productivity
 ```
 
-## 🔄 How the Build Works
+## Privacy First
+- All AI runs locally — no cloud, no tracking
+- Tor is OPTIONAL — 10 pros and 10 cons shown before enabling
+- Every download/install shows app info, permissions, pros/cons
+- No telemetry, no data collection
+- Your data never leaves your machine
 
-1. GitHub Actions builds the Vajra kernel with custom config
-2. Applies Vajra OS patches (branding)
-3. Applies custom kernel config (security, privacy, crypto)
-4. Compiles the kernel (30-60 min)
-5. Builds a bootable ISO
-6. Publishes the ISO as a downloadable release
+## License
+Vajra OS is released under its own license. See LICENSE file.
 
-To trigger a build:
-```bash
-git tag v1.0
-git push origin v1.0
-```
-
-Or go to Actions tab → "Build Vajra OS" → "Run workflow"
-
-## 🎤 Voice Commands
-
-| Say | What Happens |
-|-----|-------------|
-| "Buddhi open browser" | Opens Firefox |
-| "Buddhi search for AI news" | Web search |
-| "Buddhi system status" | Shows system info |
-| "Buddhi install vlc" | Installs VLC |
-| "Buddhi security scan" | Full security check |
-| "Buddhi set volume to 50" | Adjusts volume |
-| "Buddhi what time is it" | Tells the time |
-
-## 📜 License
-
-MIT License.
-
-## ⚠️ Disclaimer
-
-Tor routing may be illegal in some jurisdictions. Check local laws.
-
----
-
-◆ वज्र OS — *Your OS. Your Rules. Your Privacy.*
-
-धर्मो रक्षति रक्षितः
+## Built for India
+वज्र OS is designed for Indian users first — with Indic keyboards, Indian festivals, GST calculator, IRCTC checker, Ayurveda database, Vedic math, and more.
