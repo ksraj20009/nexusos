@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+# Vajra OS Core — Build rules
+%:
+	dh $@
+
+override_dh_auto_install:
+	# Install all core scripts to /usr/bin
+	install -d $(CURDIR)/debian/vajra-core/usr/bin
+	install -d $(CURDIR)/debian/vajra-core/usr/share/vajra
+	install -d $(CURDIR)/debian/vajra-core/etc/vajra
+	install -d $(CURDIR)/debian/vajra-core/var/lib/vajra
+	install -d $(CURDIR)/debian/vajra-core/var/log/vajra
+
+	# Core management tools
+	install -m 755 $(CURDIR)/src/vajra-boot-manager.sh $(CURDIR)/debian/vajra-core/usr/bin/vajra-boot-manager
+	install -m 755 $(CURDIR)/src/vajra-process-manager.py $(CURDIR)/debian/vajra-core/usr/bin/vajra-process-manager
+	install -m 755 $(CURDIR)/src/vajra-memory-manager.py $(CURDIR)/debian/vajra-core/usr/bin/vajra-memory-manager
+	install -m 755 $(CURDIR)/src/vajra-filesystem-manager.py $(CURDIR)/debian/vajra-core/usr/bin/vajra-filesystem-manager
+	install -m 755 $(CURDIR)/src/vajra-device-manager.py $(CURDIR)/debian/vajra-core/usr/bin/vajra-device-manager
+	install -m 755 $(CURDIR)/src/vajra-display-server.sh $(CURDIR)/debian/vajra-core/usr/bin/vajra-display-server
+	install -m 755 $(CURDIR)/src/vajra-service-manager.py $(CURDIR)/debian/vajra-core/usr/bin/vajra-service-manager
+	install -m 755 $(CURDIR)/src/vajra-user-session-manager.py $(CURDIR)/debian/vajra-core/usr/bin/vajra-user-session-manager
+
+override_dh_fixperms:
+	dh_fixperms
+	chmod 755 $(CURDIR)/debian/vajra-core/usr/bin/vajra-*
