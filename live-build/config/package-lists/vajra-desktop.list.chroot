@@ -1,186 +1,116 @@
-# ============================================================================
-# Vajra OS — Packages installed into the live ISO (chroot)
-# ============================================================================
-# This file lists every package that goes into the Vajra OS ISO.
-# The ISO boots into a live desktop, and the user installs from there
-# using the Calamares installer.
-# ============================================================================
+# Vajra OS Full Desktop Package List
+# These packages will be installed in the live-build chroot
 
-# === Vajra OS Packages (from our APT repository) ===
-vajra-core
-vajra-security-center
-vajra-control-center
-vajra-package-manager
-vajra-update-manager
-vajra-buddhi-ai
+# === Base System ===
+live-boot
+live-config
+systemd
+systemd-sysv
+sudo
+locales
+console-setup
+keyboard-configuration
+
+# === Desktop Environment ===
+xfce4
+xfce4-terminal
+xfce4-panel
+xfce4-session
+xfce4-settings
+xfce4-appfinder
+xfce4-whiskermenu-plugin
+thunar
+thunar-volman
+lightdm
+lightdm-gtk-greeter
+gtk3-engines-xfce
+
+# === Display & Graphics ===
+xserver-xorg
+xserver-xorg-video-all
+xserver-xorg-video-intel
+xserver-xorg-video-amd
+xserver-xorg-video-nouveau
+mesa-utils
+x11-utils
+x11-xserver-utils
+
+# === Networking ===
+network-manager
+network-manager-gnome
+firefox-esr
+wget
+curl
+openssh-client
+openssh-server
+net-tools
+wireless-tools
+
+# === Indian Language Support ===
+fonts-noto-deva
+fonts-noto-tamil
+fonts-noto-bengali
+fonts-noto-gujarati
+fonts-noto-gurmukhi
+fonts-noto-kannada
+fonts-noto-telugu
+fonts-noto-malayali
+fonts-noto-sans
+ibus
+ibus-m17n
+im-config
+locales
+
+# === Audio ===
+alsa-utils
+pulseaudio
+pavucontrol
+
+# === Package Management ===
+apt
+apt-utils
+gdebi
+synaptic
+
+# === System Tools ===
+htop
+ncdu
+baobab
+gnome-disk-utility
+gparted
+fdisk
 
 # === Installer ===
 calamares
-calamares-settings-debian
 
-# === Desktop Environment ===
-task-gnome-desktop
-gnome-core
-gnome-shell
-gnome-session
-gdm3
-gnome-terminal
-gnome-control-center
-gnome-tweaks
-gnome-shell-extensions
-gnome-shell-extension-dashtodock
-gnome-shell-extension-apps-menu
-gnome-shell-extension-launcher
-
-# === Display & Graphics ===
-xorg
-xserver-xorg
-xserver-xorg-video-all
-mesa-utils
-x11-xserver-utils
-xterm
-
-# === Network ===
-network-manager
-network-manager-gnome
-wpasupplicant
-wireless-tools
-net-tools
-iproute2
-curl
-wget
-
-# === Audio ===
-pulseaudio
-pulseaudio-utils
-alsa-utils
-pavucontrol
-
-# === Internet ===
-firefox-esr
-thunderbird
-transmission-gtk
-
-# === Office ===
-libreoffice
-libreoffice-gnome
-evince
-file-roller
-
-# === Graphics ===
-gimp
-inkscape
-eog
-gnome-screenshot
-simple-scan
+# === Vajra OS Packages (from our repo) ===
+# These will be installed from the Vajra APT repo
+# vajra-core
+# vajra-buddhi-ai
+# vajra-security-center
+# vajra-control-center
+# vajra-package-manager
+# vajra-update-manager
+# vajra-keyring
+# vajra-desktop
+# vajra-wallpapers
 
 # === Media ===
+mpv
 vlc
-rhythmbox
-cheese
-audacity
-brasero
-
-# === System Tools ===
-gparted
-gnome-disk-utility
-baobab
-htop
-neofetch
-git
-vim
-openssh-client
-debootstrap
-live-build
-reprepro
-
-# === Security ===
-ufw
-gnupg
-gnupg2
-apparmor
-apparmor-utils
-clamav
-clamav-daemon
-fail2ban
-nmap
-wireshark
-macchanger
-
-# === Fonts (Indian languages) ===
-fonts-noto-core
-fonts-noto-cjk
-fonts-noto-color-emoji
-fonts-noto-extra
-fonts-indic
-fonts-lohit-deva
-fonts-lohit-taml
-fonts-lohit-beng-assamese
-fonts-lohit-guru
-fonts-lohit-knda
-fonts-lohit-mlym
-fonts-lohit-orya
-fonts-lohit-telu
-
-# === Indian Language Support ===
-locales
-locales-all
-ibus
-ibus-m17n
-m17n-db
-m17n-contrib
-fcitx
-fcitx-m17n
-
-# === Privacy ===
-tor
-tor-geoipdb
-macchanger
-redshift
+ffmpeg
+gimp
+libreoffice
 
 # === Development ===
 python3
 python3-pip
-python3-venv
-python3-dbus
-nodejs
-npm
-gcc
-make
-build-essential
-dkms
+git
+vim
+nano
 
-# === Accessibility ===
-orca
-espeak-ng
-espeak-ng-data
-gnome-accessibility-themes
-
-# === Firmware ===
-firmware-linux
-firmware-linux-nonfree
-firmware-iwlwifi
-firmware-realtek
-firmware-amd-graphics
-firmware-misc-nonfree
-
-# === Bootloader ===
-grub-pc
-grub-pc-bin
-grub-efi-amd64
-grub-efi-amd64-bin
-grub2-common
-shim-signed
-mokutil
-
-# === Filesystem ===
-exfatprogs
-ntfs-3g
-dosfstools
-e2fsprogs
-btrfs-progs
-xfsprogs
-
-# === Container ===
-docker.io
-docker-compose
+# === Security ===
+ufw
+gnupg
+openssh-server
+fail2ban
