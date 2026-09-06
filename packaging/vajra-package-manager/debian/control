@@ -1,0 +1,25 @@
+Source: vajra-package-manager
+Section: admin
+Priority: optional
+Maintainer: Vajra OS Team <packages@vajra-os.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://vajra-os.org
+
+Package: vajra-package-manager
+Architecture: all
+Depends: ${misc:Depends}, python3, apt, dpkg
+Description: Vajra OS App Store & Package Manager — 28 curated free apps
+ Privacy-first app store that shows app info, pros, cons, and permissions
+ BEFORE installation. All apps are free and open source.
+ .
+ Features:
+  * Browse 28 curated apps across 9 categories
+  * Search apps by name, description, or category
+  * Show app details: description, size, permissions, pros, cons
+  * Install/remove apps with privacy confirmation
+  * Update all installed packages
+  * List all installed packages
+ .
+ Categories: Office, Graphics, Internet, Media, Developer, System,
+ Security, Social, Gaming.
