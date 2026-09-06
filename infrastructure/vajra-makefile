@@ -1,0 +1,49 @@
+# Vajra OS Makefile
+.PHONY: all build-iso build-docker install clean test
+
+all: test build-iso build-docker
+
+# Run syntax checks on all scripts
+test:
+	@echo "Checking Python files..."
+	@find . -name "*.py" -exec python3 -m py_compile {} + 2>&1 || true
+	@echo "Checking Bash files..."
+	@find . -name "*.sh" -exec bash -n {} + 2>&1 || true
+	@echo "All checks passed!"
+
+# Build bootable ISO
+build-iso:
+	@echo "Building Vajra OS ISO..."
+	bash infrastructure/vajra-iso-build-script.sh
+
+# Build Docker image
+build-docker:
+	@echo "Building Docker image..."
+	docker build -t vajra/os:latest -f infrastructure/vajra-dockerfile .
+	docker build -t vajra/ai:latest -f infrastructure/vajra-ai-dockerfile .
+
+# Install on existing system
+install:
+	@echo "Installing Vajra OS..."
+	sudo bash infrastructure/vajra-install-script.sh
+
+# Clean build artifacts
+clean:
+	rm -rf live-image-*.iso
+	rm -rf .build
+	docker rmi vajra/os:latest 2>/dev/null || true
+
+# Create live USB
+usb:
+	@read -p "ISO path: " iso; \
+	read -p "USB device: " usb; \
+	sudo dd if="$$iso" of="$$usb" bs=4M status=progress conv=fsync
+
+# Run in Docker
+run-docker:
+	docker run -it --rm -p 8080:8080 vajra/os:latest
+
+# Run in QEMU
+run-qemu:
+	@read -p "ISO path: " iso; \
+	qemu-system-x86_64 -m 4096 -smp 2 -cdrom "$$iso" -boot d -net nic -net user
