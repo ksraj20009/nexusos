@@ -1,0 +1,7 @@
+[Unit]
+Description=Vajra OS Festival Reminder
+After=network.target graphical.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/share/vajra/tools/festivals_vajra-festival-calendar.py --notify
