@@ -1,0 +1,5 @@
+vajra-package-manager (1.0.0) vajra; urgency=medium
+
+  * Initial release — Vajra OS App Store with 28 curated free apps
+
+ -- Vajra OS Team <packages@vajra-os.org>  Sat, 06 Sep 2026 09:00:00 +0000
