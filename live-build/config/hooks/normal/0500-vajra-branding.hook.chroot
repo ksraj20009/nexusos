@@ -1,0 +1,88 @@
+#!/bin/sh
+# Vajra OS Live-Build Hook: Branding
+# Runs inside chroot during build
+
+set -e
+
+echo "[Vajra] Applying branding..."
+
+# Set hostname
+echo "vajra-os" > /etc/hostname
+
+# Set hosts
+cat > /etc/hosts << 'HOSTS'
+127.0.0.1 vajra-os localhost
+::1 vajra-os localhost ip6-localhost ip6-loopback
+HOSTS
+
+# Set os-release
+cat > /etc/os-release << 'OSREL'
+NAME="Vajra OS"
+VERSION="1.0 (Desktop)"
+ID=vajra
+ID_LIKE=debian
+PRETTY_NAME="Vajra OS 1.0 — India's Privacy-First AI-Powered OS"
+VERSION_ID="1.0"
+HOME_URL="https://github.com/ksraj20009/vajra-os"
+SUPPORT_URL="https://github.com/ksraj20009/vajra-os/issues"
+OSREL
+
+# Set default locale
+echo "LANG=en_IN.UTF-8" > /etc/default/locale
+echo "LC_ALL=en_IN.UTF-8" >> /etc/default/locale
+
+# Generate Indian locales
+for loc in hi_IN.UTF-8 ta_IN.UTF-8 bn_IN.UTF-8 en_IN.UTF-8; do
+    sed -i "s/# $loc/$loc/" /etc/locale.gen 2>/dev/null || echo "$loc UTF-8" >> /etc/locale.gen
+done
+locale-gen 2>/dev/null || true
+
+# Create vajra user
+useradd -m -s /bin/bash -G sudo,netdev,audio,video,plugdev vajra 2>/dev/null || true
+echo "vajra:vajra" | chpasswd
+
+# Create vajra mode groups
+groupadd -f vajra-beginner
+groupadd -f vajra-pro
+usermod -aG vajra-beginner vajra
+
+# Install fontconfig
+if [ -f /usr/share/vajra/desktop/fontconfig/vajra-indic-fonts.conf ]; then
+    ln -sf /usr/share/vajra/desktop/fontconfig/vajra-indic-fonts.conf /etc/fonts/conf.d/65-vajra-indic-fonts.conf
+fi
+
+# Install polkit rules
+if [ -f /usr/share/vajra/polkit/49-vajra-mode.rules ] && [ -d /etc/polkit-1/rules.d ]; then
+    cp /usr/share/vajra/polkit/49-vajra-mode.rules /etc/polkit-1/rules.d/
+fi
+
+# Set LightDM config
+if [ -f /usr/share/vajra/desktop/lightdm.conf ]; then
+    cp /usr/share/vajra/desktop/lightdm.conf /etc/lightdm/lightdm.conf
+fi
+
+# Set wallpaper
+mkdir -p /usr/share/backgrounds/vajra
+if [ -f /usr/share/vajra/wallpapers/vajra-default.svg ]; then
+    cp /usr/share/vajra/wallpapers/vajra-default.svg /usr/share/backgrounds/vajra/
+fi
+
+# Configure Xfce desktop
+mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
+if [ -f /usr/share/vajra/desktop/xfce4-desktop.xml ]; then
+    cp /usr/share/vajra/desktop/xfce4-desktop.xml /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
+fi
+
+# Set IBus environment
+cat >> /etc/environment << 'IBUS'
+GTK_IM_MODULE=ibus
+QT_IM_MODULE=ibus
+XMODIFIERS=@im=ibus
+IBUS
+
+# Enable systemd services
+for svc in vajra-boot-check vajra-update-check.timer vajra-festival-reminder.timer vajra-ayurveda-reminder.timer; do
+    systemctl enable $svc 2>/dev/null || true
+done
+
+echo "[Vajra] Branding complete!"
