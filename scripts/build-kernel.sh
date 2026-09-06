@@ -1,6 +1,6 @@
 #!/bin/bash
 # Vajra OS Kernel Builder
-# वज्र OS — Clones the REAL Linux kernel from torvalds/linux,
+# वज्र OS — Builds the Vajra OS custom kernel,
 # applies Vajra patches and config, then compiles.
 set -e
 
@@ -13,64 +13,64 @@ OUTPUT_DIR="${PROJECT_DIR}/output"
 
 echo "◆ Vajra OS Kernel Builder"
 echo "=========================="
-echo "  Kernel:  Linux ${KERNEL_VERSION}"
-echo "  Repo:    ${KERNEL_REPO}"
+echo " Kernel: ${KERNEL_VERSION}"
+echo " Repo: ${KERNEL_REPO}"
 echo ""
 
-echo "[1/7] Cloning Linux kernel..."
+echo "[1/7] Cloning kernel source..."
 if [ -d "${BUILD_DIR}/linux" ]; then
-    cd "${BUILD_DIR}/linux"
-    git fetch --depth=1 origin "${KERNEL_VERSION}"
-    git checkout "${KERNEL_VERSION}"
+ cd "${BUILD_DIR}/linux"
+ git fetch --depth=1 origin "${KERNEL_VERSION}"
+ git checkout "${KERNEL_VERSION}"
 else
-    mkdir -p "${BUILD_DIR}"
-    cd "${BUILD_DIR}"
-    git clone --depth=1 --branch "${KERNEL_VERSION}" "${KERNEL_REPO}" linux
-    cd linux
+ mkdir -p "${BUILD_DIR}"
+ cd "${BUILD_DIR}"
+ git clone --depth=1 --branch "${KERNEL_VERSION}" "${KERNEL_REPO}" linux
+ cd linux
 fi
-echo "  ✓ Kernel source ready"
+echo " ✓ Kernel source ready"
 
 echo "[2/7] Applying Vajra OS patches..."
 PATCH_DIR="${PROJECT_DIR}/kernel/patches"
 if [ -d "${PATCH_DIR}" ]; then
-    for patch in "${PATCH_DIR}"/*.patch; do
-        if [ -f "$patch" ]; then
-            echo "  → Applying $(basename "$patch")..."
-            git apply "$patch" 2>/dev/null || echo "  ⚠ Patch already applied: $(basename "$patch")"
-        fi
-    done
+ for patch in "${PATCH_DIR}"/*.patch; do
+ if [ -f "$patch" ]; then
+ echo " → Applying $(basename "$patch")..."
+ git apply "$patch" 2>/dev/null || echo " ⚠ Patch already applied: $(basename "$patch")"
+ fi
+ done
 fi
-echo "  ✓ Patches applied"
+echo " ✓ Patches applied"
 
 echo "[3/7] Configuring kernel..."
 CONFIG_FILE="${PROJECT_DIR}/kernel/configs/vajra.config"
 make defconfig
 if [ -f "${CONFIG_FILE}" ]; then
-    while IFS= read -r line; do
-        [[ "$line" =~ ^# ]] && continue
-        [[ -z "$line" ]] && continue
-        key=$(echo "$line" | cut -d= -f1)
-        value=$(echo "$line" | cut -d= -f2)
-        if [ "$value" = "y" ]; then
-            scripts/config --enable "$key"
-        elif [ "$value" = "n" ]; then
-            scripts/config --disable "$key"
-        else
-            scripts/config --set-val "$key" "$value"
-        fi
-    done < "${CONFIG_FILE}"
+ while IFS= read -r line; do
+ [[ "$line" =~ ^# ]] && continue
+ [[ -z "$line" ]] && continue
+ key=$(echo "$line" | cut -d= -f1)
+ value=$(echo "$line" | cut -d= -f2)
+ if [ "$value" = "y" ]; then
+ scripts/config --enable "$key"
+ elif [ "$value" = "n" ]; then
+ scripts/config --disable "$key"
+ else
+ scripts/config --set-val "$key" "$value"
+ fi
+ done < "${CONFIG_FILE}"
 fi
 scripts/config --set-str LOCALVERSION "-vajra"
 make olddefconfig
-echo "  ✓ Kernel configured"
+echo " ✓ Kernel configured"
 
 echo "[4/7] Building kernel..."
 make -j"$(nproc)" 2>&1 | tail -5
-echo "  ✓ Kernel built"
+echo " ✓ Kernel built"
 
 echo "[5/7] Building modules..."
 make modules -j"$(nproc)" 2>&1 | tail -5
-echo "  ✓ Modules built"
+echo " ✓ Modules built"
 
 echo "[6/7] Packaging..."
 mkdir -p "${OUTPUT_DIR}"
@@ -78,16 +78,16 @@ cp arch/x86/boot/bzImage "${OUTPUT_DIR}/vajra-kernel-${KERNEL_VERSION}-x86_64"
 make modules_install INSTALL_MOD_PATH="${OUTPUT_DIR}/modules" 2>&1 | tail -3
 cd "${OUTPUT_DIR}"
 tar czf "vajra-kernel-${KERNEL_VERSION}-x86_64.tar.gz" \
-    "vajra-kernel-${KERNEL_VERSION}-x86_64" "modules/"
+ "vajra-kernel-${KERNEL_VERSION}-x86_64" "modules/"
 sha256sum "vajra-kernel-${KERNEL_VERSION}-x86_64.tar.gz" > "vajra-kernel-${KERNEL_VERSION}-x86_64.tar.gz.sha256"
-echo "  ✓ Packaged"
+echo " ✓ Packaged"
 
 echo "[7/7] Build complete!"
 echo ""
 echo "◆ Vajra OS Kernel Build Summary"
 echo "================================"
-echo "  Kernel:   Linux ${KERNEL_VERSION}-vajra"
-echo "  Image:    ${OUTPUT_DIR}/vajra-kernel-${KERNEL_VERSION}-x86_64"
-echo "  Package:  ${OUTPUT_DIR}/vajra-kernel-${KERNEL_VERSION}-x86_64.tar.gz"
+echo " Kernel: ${KERNEL_VERSION}-vajra"
+echo " Image: ${OUTPUT_DIR}/vajra-kernel-${KERNEL_VERSION}-x86_64"
+echo " Package: ${OUTPUT_DIR}/vajra-kernel-${KERNEL_VERSION}-x86_64.tar.gz"
 echo ""
 echo "◆ वज्र OS — धर्मो रक्षति रक्षितः"
