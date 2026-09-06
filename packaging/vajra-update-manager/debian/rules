@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+
+override_dh_auto_install:
+	install -d $(CURDIR)/debian/vajra-update-manager/usr/bin
+	install -m 755 $(CURDIR)/src/vajra-update-manager.py \
+		$(CURDIR)/debian/vajra-update-manager/usr/bin/vajra-update-manager
