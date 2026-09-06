@@ -1,0 +1,33 @@
+#!/bin/bash
+# ============================================================================
+# Vajra OS — live-build hook to add Vajra APT repo during ISO build
+# ============================================================================
+# This hook runs during the chroot phase of live-build and adds the
+# Vajra OS APT repository so that vajra-* packages can be installed.
+#
+# Copy to: live-build/config/hooks/normal/0200-vajra-repo.hook.chroot
+# ============================================================================
+set -e
+
+echo "[Vajra] Adding Vajra OS APT repository..."
+
+# Create keyring directory
+mkdir -p /usr/share/keyrings
+
+# Download and install the Vajra GPG key
+# In production, this would fetch from https://repo.vajra-os.org/key.asc
+# For build-time, we install it from the build environment
+if [ -f /tmp/vajra-archive-keyring.gpg ]; then
+    cp /tmp/vajra-archive-keyring.gpg /usr/share/keyrings/vajra-archive-keyring.gpg
+    chmod 644 /usr/share/keyrings/vajra-archive-keyring.gpg
+fi
+
+# Add Vajra repository to sources.list.d
+cat > /etc/apt/sources.list.d/vajra.list << 'VAJRAEOF'
+deb [signed-by=/usr/share/keyrings/vajra-archive-keyring.gpg] https://repo.vajra-os.org vajra main contrib non-free
+VAJRAEOF
+
+# Update package lists
+apt-get update -qq 2>/dev/null || true
+
+echo "[Vajra] Vajra OS APT repository added."
