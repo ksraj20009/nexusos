@@ -1,0 +1,5 @@
+vajra-keyring (1.0.0) vajra; urgency=medium
+
+  * Initial release — GPG key for Vajra OS APT repository verification
+
+ -- Vajra OS Team <packages@vajra-os.org>  Sat, 06 Sep 2026 08:55:00 +0000
