@@ -1,0 +1,36 @@
+# ============================================================================
+# Vajra OS — GRUB default configuration
+# ============================================================================
+# This file overrides /etc/default/grub with Vajra OS settings.
+# ============================================================================
+
+# Boot settings
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="Vajra OS"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+GRUB_CMDLINE_LINUX=""
+
+# Enable GRUB theme
+GRUB_THEME="/boot/grub/themes/vajra/theme.txt"
+
+# Graphics
+GRUB_GFXMODE=1920x1080x32,1024x768x32,auto
+GRUB_GFXPAYLOAD_LINUX=keep
+
+# Hidden menu (set to false to always show boot menu)
+GRUB_HIDDEN_TIMEOUT=0
+GRUB_HIDDEN_TIMEOUT_QUIET=false
+
+# Disable recovery and memtest (beginner-friendly)
+GRUB_DISABLE_RECOVERY=true
+GRUB_DISABLE_MEMTEST=true
+
+# Save default
+GRUB_SAVEDEFAULT=false
+
+# Background
+GRUB_BACKGROUND="/boot/grub/themes/vajra/background.png"
+
+# Disable submenu (flatten boot menu)
+GRUB_DISABLE_SUBMENU=y
