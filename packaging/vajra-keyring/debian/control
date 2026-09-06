@@ -1,0 +1,17 @@
+Source: vajra-keyring
+Section: misc
+Priority: important
+Maintainer: Vajra OS Team <packages@vajra-os.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://vajra-os.org
+
+Package: vajra-keyring
+Architecture: all
+Depends: ${misc:Depends}, gnupg
+Description: Vajra OS repository signing key
+ Contains the GPG public key used to sign the Vajra OS APT repository.
+ Users install this package to verify the authenticity of Vajra OS packages.
+ .
+ The key is installed to /usr/share/keyrings/vajra-archive-keyring.gpg and
+ automatically configures apt to use it for repository verification.
