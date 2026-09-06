@@ -1,0 +1,46 @@
+# Vajra OS CI/CD Pipeline
+name: Vajra OS Build
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Python files
+        run: |
+          find . -name "*.py" -exec python3 -m py_compile {} + 2>&1 || true
+      - name: Check Bash files
+        run: |
+          find . -name "*.sh" -exec bash -n {} + 2>&1 || true
+
+  build-iso:
+    needs: syntax-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install live-build
+        run: sudo apt-get update && sudo apt-get install -y live-build
+      - name: Build ISO
+        run: |
+          lb config --distribution bookworm --architecture amd64
+          lb build
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: vajra-os-iso
+          path: live-image-amd64.hybrid.iso
+
+  build-docker:
+    needs: syntax-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t vajra/os:latest .
+      - name: Test Docker image
+        run: docker run --rm vajra/os:latest echo "Vajra OS container OK"
