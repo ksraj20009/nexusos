@@ -1,0 +1,5 @@
+vajra-sources (1.0.0) vajra; urgency=medium
+
+  * Initial release — APT sources.list for Vajra OS repository
+
+ -- Vajra OS Team <packages@vajra-os.org>  Sat, 06 Sep 2026 08:55:00 +0000
