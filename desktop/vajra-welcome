@@ -1,0 +1,50 @@
+#!/bin/bash
+# Vajra OS Welcome Screen — Shows on first login
+
+FIRST_BOOT_FILE="/etc/vajra/.first-boot-done"
+
+if [ -f "$FIRST_BOOT_FILE" ]; then
+    exit 0
+fi
+
+echo ""
+echo "  =================================================="
+echo "  |    VAJRA OS 1.0                                |"
+echo "  |    India's Privacy-First AI-Powered OS         |"
+echo "  |    Dharmo Rakshati Rakshitah                  |"
+echo "  =================================================="
+echo ""
+echo "  Welcome to Vajra OS!"
+echo ""
+echo "  BUDDHI AI"
+echo "    buddhi               — Start AI assistant"
+echo "    Super+Space          — Quick AI access (in desktop)"
+echo ""
+echo "  SYSTEM TOOLS"
+echo "    vajra-help           — Full command reference"
+echo "    vajra-tools          — List 279 utility tools"
+echo "    vajra-control        — Control Center (12 sections)"
+echo "    vajra-security       — Security Center"
+echo "    vajra-package-manager — App Store"
+echo ""
+echo "  INDIAN TOOLS"
+echo "    vajra-gst-calculator — GST calculator"
+echo "    vajra-panchang       — Panchang (Hindu calendar)"
+echo "    vajra-vedic-math     — Vedic mathematics"
+echo "    vajra-festival-cal   — Festival calendar"
+echo "    vajra-ayurveda       — Ayurveda health tips"
+echo "    vajra-irctc-status   — Train status"
+echo ""
+echo "  BEGINNER / PRO MODE"
+echo "    vajra-mode beginner  — Safety guardrails ON"
+echo "    vajra-mode pro       — Full access (advanced users)"
+echo ""
+echo "  Type 'vajra-help' for the full list of 293+ commands."
+echo ""
+
+if command -v zenity &>/dev/null; then
+    zenity --info --title="Vajra OS" --text="Welcome to Vajra OS!\n\nPress Super+Space for Buddhi AI.\nType vajra-help in terminal for all commands." 2>/dev/null &
+fi
+
+mkdir -p /etc/vajra
+touch "$FIRST_BOOT_FILE"
