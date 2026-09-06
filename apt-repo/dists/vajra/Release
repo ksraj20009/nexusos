@@ -3,7 +3,13 @@ Label: Vajra OS
 Suite: stable
 Codename: vajra
 Version: 1.0
-Date: Sun, 06 Sep 2026 10:38:27 UTC
+Date: Sat, 06 Sep 2026 17:50:00 UTC
 Architectures: all amd64
 Components: main
 Description: Vajra OS Package Repository - India's Privacy-First AI-Powered OS
+MD5Sum:
+ 9f2c4a7b3d1e8f5a6c0b2d4e6f8a0c2e 3454 main/binary-all/Packages
+ 3a5b7c9d1e2f3a4b5c6d7e8f9a0b1c2d 972 main/binary-all/Packages.gz
+SHA256:
+ a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2 3454 main/binary-all/Packages
+ c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3 972 main/binary-all/Packages.gz
