@@ -1,0 +1,29 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Origin: Vajra OS
+Label: Vajra OS
+Suite: stable
+Codename: vajra
+Version: 1.0
+Date: Sun, 06 Sep 2026 10:38:27 UTC
+Architectures: all amd64
+Components: main
+Description: Vajra OS Package Repository - India's Privacy-First AI-Powered OS
+MD5Sum:
+ e0f802607791920ca73f63ea93c5335e 2342 main/binary-all/Packages
+ a10a21d5df4042f9f00874906d61fe18 724 main/binary-all/Packages.gz
+SHA256:
+ 643f016a136d735e043892198682e84b950153428f1e3565c81f3db74e6117a1 2342 main/binary-all/Packages
+ 58e4a71a09ca1e2b3d6fc71001d6e7df140dc302e5f0f239f505806570d50e94 724 main/binary-all/Packages.gz
+-----BEGIN PGP SIGNATURE-----
+
+iQFKBAEBCgA0FiEEZy+nLtHmx2Ivn4/viB/LMRDZev0FAmqdQqMWHHBhY2thZ2Vz
+QHZhanJhLW9zLm9yZwAKCRCIH8sxENl6/TT1CADYf0GAHaDmOqkf5zAX8ysB3m2y
+LoQLZ4f7paaD+dsqnKRZy3SZBPO+G7mf1uWXV5EuNBHOdbVrdNNOuprO7SP33Hdf
++oIlM7tGTpWF/ESZWMWaJ4PcRl0khAZlaTc1Kx5cULWqPr7pge8G3li9I3NOuuuD
+69aqTysWBvev3+AaNHiN73vIjxg5SR8LwC21VabFHvklTVXsMikqETT57r2xwEiJ
+C0RxpPEMkerXMYe4dqURpRFyDAV3sZYDOCVFilVEaAySBaZ0GyUxvzYGk52tldQm
+GA79kGjowWOCJWBB9Bbr0PjbfshVpWMaNi8O7/jIcJR+plkZx63VNQdzY2UA
+=zAd0
+-----END PGP SIGNATURE-----
