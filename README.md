@@ -2,9 +2,9 @@
 
 **India's Privacy-First AI-Powered Operating System**
 
-वज्र OS is a complete, AI-powered operating system designed for India. Built with privacy at its core, it runs Buddhi AI (बुद्धि) locally — no cloud, no tracking, no telemetry.
+वज्र OS is a complete, AI-powered operating system designed for India. Built with privacy at its core, it runs Buddhi AI (बुद्धि) locally — no cloud, no tracking, no telemetry. All tools are free and open source. Everything runs locally on your machine.
 
-## Features
+## Features (320+ files, 30+ categories)
 
 ### Buddhi AI (बुद्धि)
 - Agentic AI assistant with voice control (18+ voice commands)
@@ -12,6 +12,14 @@
 - AI app integration (alarms, search, system control)
 - AI settings panel — toggle features on/off
 - Privacy-first: all AI runs locally, no data leaves your machine
+- AI Summarizer — extractive text summarization (offline)
+- AI Sentiment Analyzer — positive/negative/neutral detection (offline)
+- AI Translator — 12 Indian languages (free Google API)
+- AI Smart Reply — intent detection with suggested responses (offline)
+- AI Chat History — store, search, export conversations (local)
+- AI Image Generator — local Stable Diffusion (no cloud)
+- AI Voice Cloner — record, replay, pitch shift (local)
+- AI Code Assistant — code templates in Python/Bash/JS/C (offline)
 
 ### Indian Features
 - **Panchang** — Hindu calendar with tithi, nakshatra, yoga
@@ -25,8 +33,15 @@
 - **Indic Keyboards** — 12 Indian languages
 - **Rupee Symbol Input** — 4 methods to type ₹
 - **Indian Date Format** — dd/mm/yyyy
+- **Choghadiya** — auspicious/inauspicious time periods
+- **Muhurat Finder** — auspicious times for 8 activities + Rahu Kaal
+- **Mantra Player** — 6 sacred mantras with chanting counter
+- **Epic Quiz** — 10 questions on Ramayana & Mahabharata
+- **Jyotish Calculator** — 12 Vedic Rashi (zodiac signs) from birth date
+- **Sanskrit Tutor** — vowels, famous shlokas with meanings
+- **Language Learning** — Hindi/Sanskrit vocabulary with pronunciation
 
-### Security Suite (20+ tools)
+### Security Suite (25+ tools)
 - Pentest menu (nmap, metasploit, wireshark, john, sqlmap, etc.)
 - Security dashboard with scoring
 - Intrusion detection (fail2ban + AIDE)
@@ -37,6 +52,12 @@
 - Social Engineering Toolkit (educational)
 - Cyber Academy — 17 interactive ethical hacking lessons
 - Indian IT Act 2000 sections included
+- Antivirus — ClamAV install, update, scan
+- Honeypot — Cowrie SSH honeypot for attacker detection
+- Advanced Firewall — stealth mode, IP blocking, SSH rate limiting
+- DNS-over-HTTPS — Cloudflare/Google DNS, dnscrypt-proxy
+- Security Key Setup — YubiKey/FIDO2 for SSH and PAM
+- SSH Hardening — disable root, password auth, limit retries
 
 ### Privacy
 - Encrypted cloud backup (rclone + GPG)
@@ -47,7 +68,7 @@
 - Tor optional — 10 pros and 10 cons shown before enabling
 - Every download shows app info, permissions, pros/cons before proceeding
 
-### Built-in Apps
+### Built-in Apps (30+ apps)
 - Weather (15 Indian cities)
 - Notes with tags and search
 - System monitor (CPU, RAM, disk, battery)
@@ -60,6 +81,57 @@
 - Task manager (process management)
 - PDF reader (Evince, Okular, Zathura)
 - Media converter (FFmpeg wrapper — 6 modes)
+- Torrent client (Transmission, qBittorrent)
+- FTP client (FileZilla, lftp)
+- Office suite (LibreOffice, OnlyOffice, Calligra)
+- VPN quick connect (WireGuard, OpenVPN)
+- World clock — 8 timezones including IST
+- Stopwatch & countdown timer
+- Password generator with strength rating
+- Dictionary — English definitions (free API)
+- RSS reader — 4 Indian news feeds
+- Web browser config — Firefox/Chromium/Brave + privacy settings
+- Translation — 12 Indian languages
+- Download manager — app info/pros/cons/permissions before download
+- Spreadsheet — CSV-based lightweight spreadsheet
+- Presentation maker — create slides, export to HTML
+- Unit converter — metric/imperial/Indian units (seer, maund, bigha)
+
+### Finance Tools
+- EMI Calculator — loan EMI, total payment, interest
+- Currency Converter — INR to 9 world currencies (free API)
+- Stock Tracker — 8 NSE stocks with live price links
+- Income Tax Calculator — FY 2024-25 new regime with cess
+- Expense Tracker — add/view/summarize expenses in INR (offline)
+
+### Audio
+- Bluetooth audio setup
+- Audio equalizer — PulseAudio qpaeq with presets
+- Text-to-speech — espeak local TTS with speed control (offline)
+- Sound recorder — arecord WAV recording (offline)
+- Speech-to-text — whisper local transcription (offline)
+- Podcast directory — 5 Indian podcasts
+- PulseAudio config — volume, mute, device selection
+
+### Graphics
+- Intel GPU setup
+- GPU benchmark tool
+- NVIDIA driver installer
+- AMD driver installer
+- Display calibrator
+- Multi-monitor setup — mirror/extend/external-only via xrandr
+
+### Creative
+- Image editor — GIMP, Krita, Pinta, Darktable
+- Vector editor (Inkscape)
+- Icon maker — create app icons from text/emoji (ImageMagick)
+- Screenshot annotator — screenshot + GIMP annotation
+- Wallpaper changer — auto-rotate from ~/Pictures/Wallpapers
+
+### Social
+- Messaging setup — Telegram, Signal, WhatsApp Web, Discord
+- Video call setup — Zoom, Jitsi, Skype, Google Meet, webcam/mic test
+- Social media config — open/block social sites, privacy extensions
 
 ### Developer Tools
 - VS Code setup with 8 extensions
@@ -70,6 +142,12 @@
 - IDE quickstart — 5 one-click profiles (Python, Web, C/C++, Java, Full Stack)
 - Enhanced terminal (zsh + oh-my-zsh + 13 Vajra aliases)
 - Debugger tools (pdb, GDB, strace, ltrace, valgrind, perf)
+
+### DevOps
+- Terraform setup — infrastructure as code
+- Ansible setup — infrastructure automation
+- CI runner — GitHub Actions + GitLab runner
+- Kubernetes setup — kubectl, minikube, k3s
 
 ### Gaming
 - Steam setup with Proton for Windows games
@@ -88,16 +166,35 @@
 - Disk manager (list, format, mount, unmount, swap, SMART)
 - Boot manager (GRUB entries, default, timeout, reinstall)
 - User manager (add, remove, passwords, sudo group)
+- RAM Disk creator — tmpfs mount for ultra-fast temporary storage
+- Fan control — auto control, lm-sensors, fan speed monitoring
+- Kernel updater — install/list/remove kernels
+- Locale switcher — English/Hindi/Tamil/Bengali/custom
+- Cron backup scheduler — daily/weekly/hourly rsync backups
+- Thermal monitor — CPU/GPU temperature monitoring
+- Log rotation — automatic log cleanup
+
+### Accessibility
+- Braille display support
+- Switch control — sticky/slow/bounce keys for motor disabilities
+- Voice commands — hands-free system control
+- Screen reader, magnifier, high contrast, senior mode, kids mode
 
 ### Unique Features
 - **Vedic Math Trainer** — learn ancient Indian mental math
 - **Festival Calendar** — all Indian festivals with descriptions
-- **Startup Tips** — 20 tips shown on every login
 - **Health Reminders** — 7 daily Ayurveda-based notifications
-- **Enhanced Accessibility** — 10 options (screen reader, magnifier, sticky keys, etc.)
+- **Startup Tips** — 20 tips shown on every login
 - **Kids Mode** — safe environment with blocked sites and time limits
 - **Senior Mode** — large text 1.5x, high contrast, voice control
 - **Productivity Mode** — focus mode (block social media), Pomodoro timer
+
+### Education
+- Language learning — Hindi/Sanskrit vocabulary
+- Sanskrit tutor — vowels, famous shlokas
+- Typing tutor — 5 lessons with WPM and accuracy tracking
+- India GK quiz — 8 questions with scoring
+- Science explorer — 7 ISRO missions + 6 Indian scientists
 
 ### Network
 - Network manager (Wi-Fi, hotspot, diagnostics, DNS, IP)
@@ -162,7 +259,6 @@ sudo bash infrastructure/vajra-install-script.sh
 | `vj-train` | IRCTC train status |
 | `vj-news` | Indian news headlines |
 | `vj-yoga` | Yoga timer |
-| `vj-ayurveda` | Ayurveda database |
 | `vj-vedic` | Vedic math trainer |
 | `vj-update` | System update |
 | `vj-backup` | Backup manager |
@@ -170,18 +266,27 @@ sudo bash infrastructure/vajra-install-script.sh
 ## Repository Structure
 
 ```
-nexusos/
-├── ai/              # Buddhi AI engine, voice control, NLP terminal
-├── apps/            # Weather, notes, calendar, GST, IRCTC, news, etc.
+vajra-os/
+├── ai/              # Buddhi AI engine, voice, summarizer, translator, etc.
+├── apps/            # Weather, notes, calendar, office, download manager, etc.
+├── audio/           # TTS, STT, equalizer, recorder, podcasts, PulseAudio
+├── creative/        # Image editor, icon maker, wallpaper, screenshot annotator
 ├── desktop/         # GTK theme, icons, wallpaper, window manager
-├── developer/       # VS Code, Git, Docker, Python, Node.js, debugger
-├── gaming/          # Steam, RetroArch, Wine, game mode
-├── infrastructure/  # ISO build, Docker, CI/CD, install scripts
-├── locale/          # Panchang, Ayurveda, yoga, keyboards, Indic input
-├── network/         # Network manager, firewall, bandwidth, proxy
-├── privacy/         # Encryption, password manager, shredder, browser
-├── security/        # Pentest, IDS, VPN, steganography, malware sandbox
-├── system/          # Backup, update, services, cron, logs, boot, users
+├── developer/       # VS Code, Git, Docker, Python, Node.js, IDE, debugger
+├── devops/          # Terraform, Ansible, CI runner, Kubernetes
+├── finance/         # EMI, currency, stock, tax, expense tracker
+├── gaming/          # Steam, RetroArch, Wine, Heroic, game mode
+├── graphics/        # GPU drivers, benchmark, display calibrator, multi-monitor
+├── infrastructure/  # ISO build, Docker, CI/CD, install, VM, USB, Makefile
+├── kernel/          # Custom kernel configs and patches
+├── locale/          # Panchang, Ayurveda, yoga, Vedic math, Choghadiya, Jyotish
+├── network/         # Network manager, firewall, bandwidth, DNS, proxy
+├── privacy/         # Encryption, password manager, shredder, browser, Tor
+├── security/        # Pentest, IDS, VPN, honeypot, firewall, DNS-over-HTTPS
+├── social/          # Messaging, video call, social media config
+├── system/          # Backup, update, services, cron, logs, disk, boot, users
+├── accessibility/   # Braille, switch control, voice commands
+├── education/       # Language learning, Sanskrit, typing, quiz, science
 └── unique/          # Vedic math, festivals, health, kids/senior/productivity
 ```
 
@@ -191,9 +296,12 @@ nexusos/
 - Every download/install shows app info, permissions, pros/cons
 - No telemetry, no data collection
 - Your data never leaves your machine
+- All tools are free and open source
 
 ## License
 Vajra OS is released under its own license. See LICENSE file.
 
 ## Built for India
 वज्र OS is designed for Indian users first — with Indic keyboards, Indian festivals, GST calculator, IRCTC checker, Ayurveda database, Vedic math, and more.
+
+धर्मो रक्षति रक्षितः
