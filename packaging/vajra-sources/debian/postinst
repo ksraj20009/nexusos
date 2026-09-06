@@ -1,0 +1,11 @@
+#!/bin/bash
+# vajra-sources post-install
+set -e
+
+echo ""
+echo "  Vajra OS repository added to APT sources."
+echo "  Run: sudo apt update"
+echo "  Then: sudo apt install vajra-desktop"
+echo ""
+
+exit 0
