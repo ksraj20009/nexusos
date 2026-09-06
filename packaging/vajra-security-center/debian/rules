@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+
+override_dh_auto_install:
+	install -d $(CURDIR)/debian/vajra-security-center/usr/bin
+	install -m 755 $(CURDIR)/src/vajra-security-center.py \
+		$(CURDIR)/debian/vajra-security-center/usr/bin/vajra-security-center
