@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+
+override_dh_auto_install:
+	install -d $(CURDIR)/debian/vajra-sources/etc/apt/sources.list.d
+	install -m 644 $(CURDIR)/src/vajra.list \
+		$(CURDIR)/debian/vajra-sources/etc/apt/sources.list.d/vajra.list
