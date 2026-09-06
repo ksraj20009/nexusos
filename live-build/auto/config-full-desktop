@@ -1,0 +1,31 @@
+#!/bin/sh
+# Vajra OS Full Desktop Live-Build Configuration
+# Builds a complete bootable desktop ISO with Xfce, Calamares installer,
+# all Vajra packages, Indian language support, and Buddhi AI.
+#
+# Requirements (run on real Linux with root):
+#   sudo apt install live-build debootstrap squashfs-tools
+#   cd live-build && lb config
+
+set -e
+
+lb config \
+    --distribution trixie \
+    --architecture amd64 \
+    --archive-areas "main contrib non-free non-free-firmware" \
+    --iso-volume "VAJRA_OS_1.0" \
+    --iso-publisher "Vajra OS Project" \
+    --iso-application "Vajra OS 1.0 Desktop" \
+    --bootloader grub-pc \
+    --debian-installer none \
+    --parent-mirror-bootstrap "https://deb.debian.org/debian" \
+    --parent-mirror-chroot "https://deb.debian.org/debian" \
+    --parent-mirror-binary "https://deb.debian.org/debian" \
+    --apt-source-indices false \
+    --firmware-chroot true \
+    --win32-loader false \
+    --uefi-security-attributes none
+
+# Package lists are in config/package-lists/
+# Hooks are in config/hooks/
+# Branding is in config/includes.chroot/
