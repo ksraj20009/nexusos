@@ -1,0 +1,51 @@
+Source: vajra-desktop
+Section: metapackages
+Priority: optional
+Maintainer: Vajra OS Team <packages@vajra-os.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://vajra-os.org
+
+Package: vajra-desktop
+Architecture: all
+Depends: ${misc:Depends},
+ vajra-core,
+ vajra-keyring,
+ vajra-sources,
+ vajra-security-center,
+ vajra-control-center,
+ vajra-package-manager,
+ vajra-update-manager,
+ vajra-buddhi-ai,
+ gnome-shell | kde-plasma-desktop | xfce4,
+ firefox-esr | firefox,
+ libreoffice,
+ gimp,
+ vlc,
+ gnome-terminal | xfce4-terminal,
+ gparted,
+ network-manager,
+ ufw,
+ fonts-noto-core,
+ fonts-noto-cjk
+Recommends: thunderbird, inkscape, audacity, obs-studio, git, vim, htop, neofetch
+Suggests: timeshift, clamav, wireshark, nmap, redshift, gdebi
+Description: Vajra OS Desktop — complete desktop meta-package
+ This meta-package installs the complete Vajra OS desktop experience.
+ It pulls in all Vajra core tools, the desktop environment, default
+ applications, and system utilities that make up Vajra OS.
+ .
+ Installing this single package transforms a base Debian/Ubuntu system
+ into a full Vajra OS installation with:
+ .
+  * Vajra core system tools (boot, process, memory, filesystem, device, display)
+  * Vajra Security Center (firewall, encryption, audit, antivirus)
+  * Vajra Control Center (12-section system settings)
+  * Vajra App Store & Package Manager (28 curated apps)
+  * Vajra Update Manager (with rollback snapshots)
+  * Buddhi AI assistant (अबुद्धि) — India-first AI
+  * GNOME or KDE or XFCE desktop environment
+  * Curated default applications (all free/open-source)
+  * Indian language fonts (Noto Devanagari, Tamil, Bengali, etc.)
+ .
+ Install with: sudo apt install vajra-desktop
