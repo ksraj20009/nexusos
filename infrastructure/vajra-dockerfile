@@ -1,0 +1,33 @@
+# Vajra OS Dockerfile
+FROM debian:bookworm
+
+LABEL maintainer="Vajra OS Project"
+LABEL description="Vajra OS - India's privacy-first AI OS"
+
+ENV TZ=Asia/Kolkata
+RUN ln -snf /usr/share/timezoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get update && apt-get install -y \
+    sudo openssh-server ufw fail2ban \
+    gnome-core firefox-esr gnome-terminal nautilus \
+    git python3 python3-pip nodejs npm \
+    ibus ibus-m17n m17n-db fonts-noto \
+    orca onboard vlc ffmpeg gimp \
+    network-manager \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m -s /bin/bash vajra && \
+    echo "vajra:vajra" | chpasswd && \
+    usermod -aG sudo vajra
+
+RUN mkdir -p /opt/vajra/{ai,apps,security,locale,system,developer,gaming,unique,desktop}
+
+COPY . /opt/vajra/
+
+RUN chmod +x /opt/vajra/**/*.sh /opt/vajra/**/*.py 2>/dev/null || true
+
+RUN echo "vajra" > /etc/hostname
+
+EXPOSE 8080 5900 22
+
+CMD ["/opt/vajra/system/vajra-first-boot-wizard.py"]
