@@ -1,0 +1,28 @@
+Source: vajra-control-center
+Section: admin
+Priority: optional
+Maintainer: Vajra OS Team <packages@vajra-os.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://vajra-os.org
+
+Package: vajra-control-center
+Architecture: all
+Depends: ${misc:Depends}, python3, systemd, network-manager, alsa-utils
+Recommends: x11-xserver-utils, brightnessctl, redshift
+Description: Vajra OS Control Center — system settings (12 sections)
+ Central configuration hub for Vajra OS, modeled after Windows Settings
+ and macOS System Preferences. Provides 12 settings sections:
+ .
+  * Display (resolution, brightness, night light, scale)
+  * Network (Wi-Fi, Ethernet, DNS, proxy, diagnostics)
+  * Sound (volume, output/input devices)
+  * Privacy (Tor toggle, data clearing, MAC randomization)
+  * Security (firewall, encryption, access control)
+  * Language & Region (en_IN, hi_IN, ta_IN, etc.)
+  * Time & Date (NTP, timezone)
+  * Users & Accounts (add/remove, passwords, groups)
+  * Power & Battery (profiles, suspend, CPU governor)
+  * Apps & Features (launch app store)
+  * Accessibility
+  * About (system info with धर्मो रक्षति रक्षितः)
