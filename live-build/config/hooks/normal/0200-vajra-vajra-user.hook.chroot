@@ -1,0 +1,99 @@
+#!/bin/bash
+# ============================================================================
+# Vajra OS — Live user setup hook
+# ============================================================================
+# Creates the "vajra" live user and configures their desktop experience.
+# ============================================================================
+set -e
+
+echo "[Vajra] Setting up live user..."
+
+# Create vajra group
+if ! getent group vajra >/dev/null 2>&1; then
+    groupadd --system vajra 2>/dev/null || true
+fi
+
+# Create vajra-admin group (for elevated access in Pro mode)
+if ! getent group vajra-admin >/dev/null 2>&1; then
+    groupadd --system vajra-admin 2>/dev/null || true
+fi
+
+# The live user "vajra" is created by live-boot, but we set up the skeleton
+# Ensure the skel directory has proper defaults
+mkdir -p /etc/skel/Desktop
+
+# Create a desktop shortcut for the installer
+cat > /etc/skel/Desktop/install-vajra.desktop << 'INSTEOF'
+[Desktop Entry]
+Name=Install Vajra OS
+Name[hi]=वज्र OS इंस्टॉल करें
+Comment=Install Vajra OS on your computer
+Comment[hi]=अपने कंप्यूटर पर वज्र OS इंस्टॉल करें
+Exec=sudo calamares
+Icon=system-software-install
+Terminal=false
+Type=Application
+Categories=System;
+StartupNotify=true
+INSTEOF
+chmod 755 /etc/skel/Desktop/install-vajra.desktop
+
+# Create welcome file on desktop
+cat > /etc/skel/Desktop/welcome.txt << 'WELCOMEEOF'
+  ╔═══════════════════════════════════════════════════╗
+  ║     वज्र OS (Vajra OS) 1.0                         ║
+  ║     India's Privacy-First AI-Powered OS            ║
+  ║                                                   ║
+  ║     धर्मो रक्षति रक्षितः                          ║
+  ║     (Dharma protects those who protect it)         ║
+  ╚═══════════════════════════════════════════════════╝
+
+  Welcome to Vajra OS!
+
+  To install Vajra OS on your computer:
+    1. Double-click "Install Vajra OS" on the desktop
+    2. Follow the Calamares installer steps
+    3. Reboot into your new Vajra OS installation
+
+  To explore the live system:
+    • vajra-control-center    — System settings
+    • vajra-security-center   — Security dashboard
+    • vajra-app-store         — Install applications
+    • buddhi                  — AI assistant (बुद्धि)
+    • vajra-update-manager    — Check for updates
+
+  Features:
+    ✓ Privacy-first — no telemetry, no data collection
+    ✓ AI-powered — Buddhi AI assistant with Indian language support
+    ✓ Beginner & Pro modes
+    ✓ Indian language support (Hindi, Tamil, Bengali, Telugu, and more)
+    ✓ Built-in security tools (firewall, encryption, antivirus)
+    ✓ 320+ custom tools and utilities
+    ✓ All free and open-source
+
+  वज्र OS — भारत का अपना ऑपरेटिंग सिस्टम
+WELCOMEEOF
+
+# Setup auto-login for live session (GDM)
+if [ -f /etc/gdm3/daemon.conf ]; then
+    sed -i 's/^#\?AutomaticLoginEnable=.*/AutomaticLoginEnable = true/' /etc/gdm3/daemon.conf
+    sed -i 's/^#\?AutomaticLogin=.*/AutomaticLogin = vajra/' /etc/gdm3/daemon.conf
+fi
+
+# Set up sudo for live user
+echo "vajra ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vajra
+chmod 440 /etc/sudoers.d/vajra
+
+# Create autostart entry to run gnome-setup on first login
+mkdir -p /etc/skel/.config/autostart
+cat > /etc/skel/.config/autostart/vajra-first-run.desktop << 'AUTOSTARTEOF'
+[Desktop Entry]
+Name=Vajra First Run Setup
+Exec=/etc/skel/.config/gnome-setup.sh
+Icon=system-run
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
+AUTOSTARTEOF
+
+echo "[Vajra] Live user setup complete."
