@@ -1,0 +1,5 @@
+vajra-update-manager (1.0.0) vajra; urgency=medium
+
+  * Initial release — Vajra OS Update Manager with rollback snapshots
+
+ -- Vajra OS Team <packages@vajra-os.org>  Sat, 06 Sep 2026 09:01:00 +0000
