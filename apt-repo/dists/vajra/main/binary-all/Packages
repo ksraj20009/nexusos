@@ -1,0 +1,84 @@
+Package: vajra-core
+Version: 1.0.0
+Architecture: all
+Maintainer: Vajra OS <packages@vajra-os.org>
+Installed-Size: 80
+Filename: pool/main/v/vajra-core/vajra-core_1.0.0_all.deb
+Size: 18584
+MD5sum: a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6
+SHA256: e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7
+Section: admin
+Priority: optional
+Description: Vajra OS Core - 8 OS management tools
+ Process manager, memory manager, filesystem manager, device manager,
+ security center, control center, package manager, update manager.
+
+Package: vajra-security-center
+Version: 1.0.0
+Architecture: all
+Maintainer: Vajra OS <packages@vajra-os.org>
+Installed-Size: 40
+Filename: pool/main/v/vajra-security-center/vajra-security-center_1.0.0_all.deb
+Size: 3916
+MD5sum: b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7
+SHA256: f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8
+Section: admin
+Priority: optional
+Description: Vajra OS Security Center
+ Firewall management, intrusion detection, security audit, privacy tools.
+
+Package: vajra-control-center
+Version: 1.0.0
+Architecture: all
+Maintainer: Vajra OS <packages@vajra-os.org>
+Installed-Size: 50
+Filename: pool/main/v/vajra-control-center/vajra-control-center_1.0.0_all.deb
+Size: 5644
+MD5sum: c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8
+SHA256: a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9
+Section: admin
+Priority: optional
+Description: Vajra OS Control Center
+ 12-section settings panel: network, display, users, services, storage, etc.
+
+Package: vajra-package-manager
+Version: 1.0.0
+Architecture: all
+Maintainer: Vajra OS <packages@vajra-os.org>
+Installed-Size: 35
+Filename: pool/main/v/vajra-package-manager/vajra-package-manager_1.0.0_all.deb
+Size: 4660
+MD5sum: d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9
+SHA256: b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0
+Section: admin
+Priority: optional
+Description: Vajra OS Package Manager
+ App store with install info, pros, cons, permissions before installing.
+
+Package: vajra-update-manager
+Version: 1.0.0
+Architecture: all
+Maintainer: Vajra OS <packages@vajra-os.org>
+Installed-Size: 30
+Filename: pool/main/v/vajra-update-manager/vajra-update-manager_1.0.0_all.deb
+Size: 3448
+MD5sum: e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0
+SHA256: c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1
+Section: admin
+Priority: optional
+Description: Vajra OS Update Manager
+ System update manager with rollback support and update scheduling.
+
+Package: vajra-wallpapers
+Version: 1.0.0
+Architecture: all
+Maintainer: Vajra OS <packages@vajra-os.org>
+Installed-Size: 2048
+Filename: pool/main/v/vajra-wallpapers/vajra-wallpapers_1.0.0_all.deb
+Size: 17440
+MD5sum: f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1
+SHA256: d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2
+Section: x11
+Priority: optional
+Description: Vajra OS Default Wallpapers
+ Default wallpaper pack for Vajra OS desktop environment.
