@@ -1,0 +1,7 @@
+vajra-desktop (1.0.0) vajra; urgency=medium
+
+  * Initial release — complete Vajra OS desktop meta-package
+  * Installs all vajra-* packages + desktop environment + default apps
+  * Single command: apt install vajra-desktop
+
+ -- Vajra OS Team <packages@vajra-os.org>  Sat, 06 Sep 2026 08:58:00 +0000
