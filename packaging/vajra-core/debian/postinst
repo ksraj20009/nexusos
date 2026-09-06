@@ -1,0 +1,47 @@
+#!/bin/bash
+# vajra-core post-install script
+set -e
+
+# Create Vajra system directories
+mkdir -p /etc/vajra/settings
+mkdir -p /var/lib/vajra
+mkdir -p /var/log/vajra
+
+# Create default boot state file if it doesn't exist
+if [ ! -f /etc/vajra/boot-state ]; then
+    echo "VAJRA_OS_VERSION=1.0.0" > /etc/vajra/boot-state
+    echo "INSTALL_DATE=$(date -I)" >> /etc/vajra/boot-state
+fi
+
+# Create default settings file
+if [ ! -f /etc/vajra/settings/vajra.conf ]; then
+    echo '{"os_mode": "beginner", "display_scale": "100", "language": "en_IN", "date_format": "dd/mm/yyyy"}' > /etc/vajra/settings/vajra.conf
+fi
+
+# Make all vajra tools executable
+chmod 755 /usr/bin/vajra-* 2>/dev/null || true
+
+# Create vajra group for elevated access
+if ! getent group vajra-admin >/dev/null 2>&1; then
+    groupadd --system vajra-admin 2>/dev/null || true
+fi
+
+# Log installation
+echo "[$(date -Iseconds)] vajra-core 1.0.0 installed" >> /var/log/vajra/install.log
+
+echo ""
+echo "  Vajra OS Core System installed successfully."
+echo "  वज्र OS (Vajra OS) — धर्मो रक्षति रक्षितः"
+echo ""
+echo "  Core tools available:"
+echo "    vajra-boot-manager      — Manage boot process"
+echo "    vajra-process-manager   — Manage processes"
+echo "    vajra-memory-manager    — Manage memory & swap"
+echo "    vajra-filesystem-manager — Manage filesystems"
+echo "    vajra-device-manager    — Manage hardware & drivers"
+echo "    vajra-display-server    — Manage display settings"
+echo "    vajra-service-manager   — Manage systemd services"
+echo "    vajra-user-session-manager — Manage users & sessions"
+echo ""
+
+exit 0
