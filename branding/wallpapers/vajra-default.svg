@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#16213e"/>
+      <stop offset="100%" stop-color="#0f3460"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1920" height="6" fill="#e94560"/>
+  <polygon points="960,180 1010,250 960,320 910,250" fill="#e94560" filter="url(#glow)"/>
+  <text x="960" y="450" font-family="Noto Sans Devanagari, Arial, sans-serif" font-size="140" fill="#e94560" text-anchor="middle" font-weight="bold" filter="url(#glow)">VAJRA</text>
+  <text x="960" y="530" font-family="Arial, sans-serif" font-size="60" fill="#e94560" text-anchor="middle" opacity="0.8">OS</text>
+  <text x="960" y="610" font-family="Arial, sans-serif" font-size="28" fill="#a3a3a3" text-anchor="middle">India's Privacy-First AI-Powered Operating System</text>
+  <text x="960" y="900" font-family="Arial, sans-serif" font-size="24" fill="#5c5c5c" text-anchor="middle">Dharmo Rakshati Rakshitah</text>
+  <text x="960" y="940" font-family="Arial, sans-serif" font-size="16" fill="#444444" text-anchor="middle">Dharma protects those who protect it</text>
+</svg>
