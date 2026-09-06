@@ -1,0 +1,28 @@
+Source: vajra-core
+Section: admin
+Priority: required
+Maintainer: Vajra OS Team <packages@vajra-os.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://vajra-os.org
+
+Package: vajra-core
+Architecture: all
+Depends: ${misc:Depends}, python3, bash, systemd, procps, util-linux, coreutils
+Recommends: vajra-security-center, vajra-control-center, vajra-service-manager
+Suggests: vajra-package-manager, vajra-update-manager
+Description: Vajra OS Core System — boot, process, memory, filesystem, device, display, service, user, session managers
+ Vajra OS (वज्र OS) core system infrastructure. This package contains the
+ fundamental OS management tools that every Vajra installation needs:
+ .
+  * vajra-boot-manager    — Boot process, GRUB, kernel selection, initramfs
+  * vajra-process-manager — Process states, signals, IPC, process tree, monitor
+  * vajra-memory-manager  — Virtual memory, swap, OOM killer, memory maps
+  * vajra-filesystem-manager — VFS, mount, permissions, format, fsck
+  * vajra-device-manager  — Hardware detection, PCI/USB, driver loading
+  * vajra-display-server  — X11/Wayland, resolution, multi-monitor, brightness
+  * vajra-service-manager — systemd wrapper, targets, timers, sockets
+  * vajra-user-session-manager — Users, groups, sessions, PAM, login
+ .
+ These are the building blocks that make Vajra OS a real operating system,
+ not just a themed Linux distribution.
