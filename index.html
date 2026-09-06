@@ -59,7 +59,7 @@
             <div class="card"><h3>Privacy First</h3><p>No tracking, no telemetry, no cloud dependencies. Tor integration for anonymous browsing. Your data stays on your machine.</p></div>
             <div class="card"><h3>Buddhi AI</h3><p>Built-in AI assistant with voice commands and agentic capabilities. Runs locally, no internet required for core functions.</p></div>
             <div class="card"><h3>Indian at Core</h3><p>GST calculator, Panchang, Vedic mathematics, Ayurveda health tips, festival calendar, IRCTC train status — all built in.</p></div>
-            <div class="card"><h3>Beginner & Pro Modes</h3><p>Beginner mode has safety guardrails that block dangerous commands. Pro mode gives full access for advanced users.</p></div>
+            <div class="card"><h3>Beginner and Pro Modes</h3><p>Beginner mode has safety guardrails that block dangerous commands. Pro mode gives full access for advanced users.</p></div>
             <div class="card"><h3>10 Indian Languages</h3><p>Hindi, Tamil, Bengali, Gujarati, Punjabi, Kannada, Telugu, Malayalam, Marathi, Sanskrit — full font and input support.</p></div>
             <div class="card"><h3>Cybersecurity Tools</h3><p>Pentesting tools with ethical usage guides. Network scanner, vulnerability checker, firewall manager, intrusion detection.</p></div>
         </div>
@@ -72,8 +72,8 @@ qemu-system-x86_64 -cdrom vajra-os-1.0-amd64.iso -m 512
 docker import vajra-os-rootfs.tar vajra-os:1.0
 docker run -it vajra-os:1.0</div>
         <h2>APT Repository</h2>
-        <div class="code">curl -fsSL https://ksraj20009.github.io/vajra-os/apt-repo/vajra-archive-keyring.asc | gpg --dearmor -o /usr/share/keyrings/vajra-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/vajra-archive-keyring.gpg] https://ksraj20009.github.io/vajra-os/apt-repo vajra main" | sudo tee /etc/apt/sources.list.d/vajra.list
+        <div class="code">curl -fsSL https://vajra-os.vercel.app/apt-repo/vajra-archive-keyring.asc | gpg --dearmor -o /usr/share/keyrings/vajra-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/vajra-archive-keyring.gpg] https://vajra-os.vercel.app/apt-repo vajra main" | sudo tee /etc/apt/sources.list.d/vajra.list
 sudo apt update
 sudo apt install vajra-core vajra-buddhi-ai vajra-security-center</div>
     </div>
