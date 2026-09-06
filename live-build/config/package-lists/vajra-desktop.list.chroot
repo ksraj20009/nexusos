@@ -1,0 +1,186 @@
+# ============================================================================
+# Vajra OS — Packages installed into the live ISO (chroot)
+# ============================================================================
+# This file lists every package that goes into the Vajra OS ISO.
+# The ISO boots into a live desktop, and the user installs from there
+# using the Calamares installer.
+# ============================================================================
+
+# === Vajra OS Packages (from our APT repository) ===
+vajra-core
+vajra-security-center
+vajra-control-center
+vajra-package-manager
+vajra-update-manager
+vajra-buddhi-ai
+
+# === Installer ===
+calamares
+calamares-settings-debian
+
+# === Desktop Environment ===
+task-gnome-desktop
+gnome-core
+gnome-shell
+gnome-session
+gdm3
+gnome-terminal
+gnome-control-center
+gnome-tweaks
+gnome-shell-extensions
+gnome-shell-extension-dashtodock
+gnome-shell-extension-apps-menu
+gnome-shell-extension-launcher
+
+# === Display & Graphics ===
+xorg
+xserver-xorg
+xserver-xorg-video-all
+mesa-utils
+x11-xserver-utils
+xterm
+
+# === Network ===
+network-manager
+network-manager-gnome
+wpasupplicant
+wireless-tools
+net-tools
+iproute2
+curl
+wget
+
+# === Audio ===
+pulseaudio
+pulseaudio-utils
+alsa-utils
+pavucontrol
+
+# === Internet ===
+firefox-esr
+thunderbird
+transmission-gtk
+
+# === Office ===
+libreoffice
+libreoffice-gnome
+evince
+file-roller
+
+# === Graphics ===
+gimp
+inkscape
+eog
+gnome-screenshot
+simple-scan
+
+# === Media ===
+vlc
+rhythmbox
+cheese
+audacity
+brasero
+
+# === System Tools ===
+gparted
+gnome-disk-utility
+baobab
+htop
+neofetch
+git
+vim
+openssh-client
+debootstrap
+live-build
+reprepro
+
+# === Security ===
+ufw
+gnupg
+gnupg2
+apparmor
+apparmor-utils
+clamav
+clamav-daemon
+fail2ban
+nmap
+wireshark
+macchanger
+
+# === Fonts (Indian languages) ===
+fonts-noto-core
+fonts-noto-cjk
+fonts-noto-color-emoji
+fonts-noto-extra
+fonts-indic
+fonts-lohit-deva
+fonts-lohit-taml
+fonts-lohit-beng-assamese
+fonts-lohit-guru
+fonts-lohit-knda
+fonts-lohit-mlym
+fonts-lohit-orya
+fonts-lohit-telu
+
+# === Indian Language Support ===
+locales
+locales-all
+ibus
+ibus-m17n
+m17n-db
+m17n-contrib
+fcitx
+fcitx-m17n
+
+# === Privacy ===
+tor
+tor-geoipdb
+macchanger
+redshift
+
+# === Development ===
+python3
+python3-pip
+python3-venv
+python3-dbus
+nodejs
+npm
+gcc
+make
+build-essential
+dkms
+
+# === Accessibility ===
+orca
+espeak-ng
+espeak-ng-data
+gnome-accessibility-themes
+
+# === Firmware ===
+firmware-linux
+firmware-linux-nonfree
+firmware-iwlwifi
+firmware-realtek
+firmware-amd-graphics
+firmware-misc-nonfree
+
+# === Bootloader ===
+grub-pc
+grub-pc-bin
+grub-efi-amd64
+grub-efi-amd64-bin
+grub2-common
+shim-signed
+mokutil
+
+# === Filesystem ===
+exfatprogs
+ntfs-3g
+dosfstools
+e2fsprogs
+btrfs-progs
+xfsprogs
+
+# === Container ===
+docker.io
+docker-compose
