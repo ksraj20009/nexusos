@@ -1,0 +1,45 @@
+# ============================================================================
+# Vajra OS — live-build integration for packaging
+# ============================================================================
+# This file configures live-build to install Vajra OS packages from the
+# Vajra APT repository during ISO build. This means the ISO installs
+# vajra-desktop, vajra-core, vajra-security-center, etc. from our repo
+# instead of just copying scripts.
+#
+# To use: copy this to live-build/config/package-lists/vajra.list.chroot
+# ============================================================================
+
+# === Vajra OS Core Packages ===
+# These are installed from the Vajra APT repository (repo.vajra-os.org)
+# The repo and GPG key are added during build via live-build hooks
+
+# Keyring and sources (must be first so apt can verify packages)
+vajra-keyring
+vajra-sources
+
+# Core system
+vajra-core
+
+# Desktop and applications
+vajra-desktop
+
+# Individual packages (pulled by vajra-desktop, listed for clarity)
+vajra-security-center
+vajra-control-center
+vajra-package-manager
+vajra-update-manager
+vajra-buddhi-ai
+
+# === Base system packages ===
+# These come from Debian repos
+task-gnome-desktop
+firefox-esr
+libreoffice
+gimp
+vlc
+gparted
+gnome-terminal
+network-manager
+ufw
+fonts-noto-core
+apt-utils
