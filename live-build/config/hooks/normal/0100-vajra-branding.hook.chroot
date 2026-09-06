@@ -1,0 +1,238 @@
+#!/bin/bash
+# ============================================================================
+# Vajra OS — Branding hook (runs in chroot during ISO build)
+# ============================================================================
+# This hook applies Vajra OS branding throughout the system:
+# - Sets hostname to vajra-os
+# - Replaces default OS name in /etc/os-release
+# - Sets Vajra wallpaper and theme
+# - Configures GDM login screen
+# - Sets default wallpaper
+# - Applies Vajra GRUB theme
+# ============================================================================
+set -e
+
+echo "[Vajra] Applying Vajra OS branding..."
+
+# --- Hostname ---
+echo "vajra-os" > /etc/hostname
+
+# --- OS Release info ---
+cat > /etc/os-release << 'OSEOF'
+NAME="Vajra OS"
+VERSION="1.0 (वज्र)"
+ID=vajra
+ID_LIKE=debian
+PRETTY_NAME="Vajra OS 1.0 (वज्र OS)"
+VERSION_ID="1.0"
+HOME_URL="https://vajra-os.org"
+SUPPORT_URL="https://github.com/ksraj20009/vajra-os"
+BUG_REPORT_URL="https://github.com/ksraj20009/vajra-os/issues"
+ANSI_COLOR="1;35"
+LOGO=vajra-os
+OSEOF
+
+# --- Issue / motd ---
+cat > /etc/issue << 'ISSUEEOF'
+Vajra OS 1.0 (वज्र OS) \n \l
+
+India's Privacy-First AI-Powered Operating System
+धर्मो रक्षति रक्षितः
+
+ISSUEEOF
+
+cat > /etc/motd << 'MOTDEOF'
+
+  ╔═══════════════════════════════════════════════╗
+  ║     वज्र OS (Vajra OS) 1.0                     ║
+  ║     India's Privacy-First AI-Powered OS        ║
+  ║     धर्मो रक्षति रक्षितः                       ║
+  ╚═══════════════════════════════════════════════╝
+
+  Quick start:
+    vajra-control-center    — System settings
+    vajra-security-center   — Security dashboard
+    vajra-app-store         — Install applications
+    buddhi                  — AI assistant (बुद्धि)
+    vajra-update-manager    — Check for updates
+
+MOTDEOF
+
+# --- Default wallpaper ---
+mkdir -p /usr/share/backgrounds/vajra
+cat > /usr/share/backgrounds/vajra/vajra-default.xml << 'WPEOF'
+<?xml version="1.0"?>
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>Vajra OS Default</name>
+    <filename>/usr/share/backgrounds/vajra/vajra-default.png</filename>
+    <options>zoom</options>
+    <pcolor>#1a1a2e</pcolor>
+    <scolor>#16213e</scolor>
+    <shade_type>vertical-gradient</shade_type>
+  </wallpaper>
+</wallpapers>
+WPEOF
+
+# Create a simple SVG-based wallpaper placeholder
+cat > /usr/share/backgrounds/vajra/vajra-default.svg << 'SVGEOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#16213e"/>
+      <stop offset="100%" stop-color="#0f3460"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <text x="960" y="500" font-family="Noto Sans Devanagari, sans-serif" font-size="120" fill="#e94560" text-anchor="middle" font-weight="bold">वज्र</text>
+  <text x="960" y="600" font-family="sans-serif" font-size="48" fill="#e94560" text-anchor="middle" opacity="0.8">Vajra OS</text>
+  <text x="960" y="680" font-family="sans-serif" font-size="24" fill="#a3a3a3" text-anchor="middle">India's Privacy-First AI-Powered Operating System</text>
+  <text x="960" y="980" font-family="Noto Sans Devanagari, sans-serif" font-size="28" fill="#5c5c5c" text-anchor="middle">धर्मो रक्षति रक्षितः</text>
+</svg>
+SVGEOF
+
+# --- GDM login screen branding ---
+mkdir -p /etc/gdm3
+if [ -f /etc/gdm3/daemon.conf ]; then
+    sed -i 's/^#\?WaylandEnable=.*/WaylandEnable=true/' /etc/gdm3/daemon.conf
+    sed -i 's/^#\?AutomaticLoginEnable=.*/AutomaticLoginEnable = false/' /etc/gdm3/daemon.conf
+fi
+
+# --- Default user setup ---
+# The live user is "vajra" (set in bootappend-live)
+mkdir -p /home/vajra/.config
+mkdir -p /home/vajra/.local/share
+mkdir -p /home/vajra/Desktop
+mkdir -p /home/vajra/Downloads
+mkdir -p /home/vajra/Documents
+
+# --- Default GSettings (GNOME config) ---
+mkdir -p /etc/skel/.config/glib-2.0
+mkdir -p /etc/skel/.local/share/gnome-shell
+
+# Set default wallpaper for new users
+cat > /etc/skel/.config/gnome-setup.sh << 'SETUPEOF'
+#!/bin/bash
+# Applied for each new user on first login
+gsettings set org.gnome.desktop.background picture-uri "file:///usr/share/backgrounds/vajra/vajra-default.svg" 2>/dev/null || true
+gsettings set org.gnome.desktop.background picture-uri-dark "file:///usr/share/backgrounds/vajra/vajra-default.svg" 2>/dev/null || true
+gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark" 2>/dev/null || true
+gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 2>/dev/null || true
+gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'org.gnome.Nautilus.desktop', 'vajra-control-center.desktop', 'vajra-app-store.desktop', 'buddhi.desktop', 'org.gnome.Terminal.desktop', 'libreoffice-writer.desktop', 'vlc.desktop']" 2>/dev/null || true
+SETUPEOF
+chmod 755 /etc/skel/.config/gnome-setup.sh
+
+# --- Create desktop shortcuts for Vajra tools ---
+mkdir -p /usr/share/applications
+
+cat > /usr/share/applications/vajra-control-center.desktop << 'DTEOF'
+[Desktop Entry]
+Name=Vajra Control Center
+Name[hi]=वज्र नियंत्रण केंद्र
+Comment=System settings and configuration
+Comment[hi]=सिस्टम सेटिंग्स और कॉन्फ़िगरेशन
+Exec=vajra-control-center
+Icon=preferences-system
+Terminal=false
+Type=Application
+Categories=System;Settings;
+StartupNotify=true
+DTEOF
+
+cat > /usr/share/applications/vajra-security-center.desktop << 'DTEOF'
+[Desktop Entry]
+Name=Vajra Security Center
+Name[hi]=वज्र सुरक्षा केंद्र
+Comment=Firewall, encryption, audit, antivirus
+Comment[hi]=फ़ायरवॉल, एन्क्रिप्शन, ऑडिट, एंटीवायरस
+Exec=vajra-security-center
+Icon=security-high
+Terminal=false
+Type=Application
+Categories=System;Security;
+StartupNotify=true
+DTEOF
+
+cat > /usr/share/applications/vajra-app-store.desktop << 'DTEOF'
+[Desktop Entry]
+Name=Vajra App Store
+Name[hi]=वज्र ऐप स्टोर
+Comment=Install free and open-source applications
+Comment[hi]=मुफ़्त और ओपन-सोर्स ऐप्स इंस्टॉल करें
+Exec=vajra-app-store
+Icon=system-software-install
+Terminal=false
+Type=Application
+Categories=System;PackageManager;
+StartupNotify=true
+DTEOF
+
+cat > /usr/share/applications/buddhi.desktop << 'DTEOF'
+[Desktop Entry]
+Name=Buddhi AI
+Name[hi]=बुद्धि एआई
+Comment=India-first AI assistant
+Comment[hi]=भारत-प्रथम एआई सहायक
+Exec=buddhi
+Icon=avatar-default
+Terminal=true
+Type=Application
+Categories=Utility;AI;Assistant;
+StartupNotify=true
+DTEOF
+
+cat > /usr/share/applications/vajra-update-manager.desktop << 'DTEOF'
+[Desktop Entry]
+Name=Vajra Update Manager
+Name[hi]=वज्र अपडेट प्रबंधक
+Comment=Check and install system updates
+Comment[hi]=सिस्टम अपडेट जांचें और इंस्टॉल करें
+Exec=vajra-update-manager
+Icon=system-software-update
+Terminal=true
+Type=Application
+Categories=System;PackageManager;
+StartupNotify=true
+DTEOF
+
+# --- Systemd presets (which services start by default) ---
+mkdir -p /etc/systemd/system-preset
+cat > /etc/systemd/system-preset/90-vajra.preset << 'PRESETEOF'
+enable gdm3
+enable NetworkManager
+enable ufw
+enable apparmor
+enable clamav-daemon
+enable fail2ban
+disable bluetooth
+disable ModemManager
+disable avahi-daemon
+disable cups
+disable rpcbind
+disable nfs-common
+PRESETEOF
+
+# --- Disable unwanted services ---
+systemctl disable snapd 2>/dev/null || true
+systemctl disable ModemManager 2>/dev/null || true
+systemctl disable avahi-daemon 2>/dev/null || true
+
+# --- Set default locale ---
+echo "LANG=en_IN.UTF-8" > /etc/default/locale
+echo "LC_TIME=en_IN.UTF-8" >> /etc/default/locale
+
+# --- Set timezone ---
+rm -f /etc/localtime
+ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+
+# --- Vajra directories ---
+mkdir -p /etc/vajra/settings
+mkdir -p /var/lib/vajra
+mkdir -p /var/log/vajra
+
+# --- Default settings ---
+echo '{"os_mode": "beginner", "display_scale": "100", "language": "en_IN", "date_format": "dd/mm/yyyy", "timezone": "Asia/Kolkata"}' > /etc/vajra/settings/vajra.conf
+
+echo "[Vajra] Branding applied successfully."
