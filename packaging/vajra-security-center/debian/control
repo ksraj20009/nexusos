@@ -1,0 +1,27 @@
+Source: vajra-security-center
+Section: admin
+Priority: optional
+Maintainer: Vajra OS Team <packages@vajra-os.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://vajra-os.org
+
+Package: vajra-security-center
+Architecture: all
+Depends: ${misc:Depends}, python3, ufw, gnupg, apparmor
+Recommends: clamav, fail2ban
+Description: Vajra OS Security Center — firewall, encryption, audit, antivirus
+ Centralized security management for Vajra OS. Provides a dashboard with
+ security score, firewall management, file/disk encryption, access control
+ (PAM/sudo/AppArmor), audit logging, and antivirus scanning.
+ .
+ Features:
+  * Security dashboard with score (0-100)
+  * UFW firewall management (allow/deny ports, services)
+  * GPG file encryption/decryption
+  * LUKS disk encryption status
+  * AppArmor profile management
+  * Failed login tracking
+  * Audit log of all security events
+  * One-click security hardening
+  * ClamAV antivirus integration
