@@ -32,7 +32,7 @@
         .stat .label { color: #aaa; font-size: 0.9rem; }
         .install { padding: 4rem 2rem; max-width: 800px; margin: 0 auto; }
         .install h2 { color: #FF9933; margin-bottom: 1.5rem; }
-        .code { background: #111; border: 1px solid #333; border-radius: 8px; padding: 1rem; font-family: 'Courier New', monospace; color: #0f0; margin: 1rem 0; overflow-x: auto; }
+        .code { background: #111; border: 1px solid #333; border-radius: 8px; padding: 1rem; font-family: 'Courier New', monospace; color: #0f0; margin: 1rem 0; overflow-x: auto; white-space: pre; }
         footer { text-align: center; padding: 2rem; color: #666; border-top: 1px solid rgba(255, 255, 255, 0.05); }
         .badge { display: inline-block; padding: 0.2rem 0.8rem; background: rgba(19, 136, 8, 0.2); color: #138808; border-radius: 20px; font-size: 0.85rem; margin-top: 0.5rem; }
     </style>
@@ -68,12 +68,16 @@
         <h2>Quick Install</h2>
         <div class="code">dd if=vajra-os-1.0-amd64.iso of=/dev/sdX bs=4M status=progress
 sync
+
 qemu-system-x86_64 -cdrom vajra-os-1.0-amd64.iso -m 512
+
 docker import vajra-os-rootfs.tar vajra-os:1.0
 docker run -it vajra-os:1.0</div>
         <h2>APT Repository</h2>
-        <div class="code">curl -fsSL https://vajra-os.vercel.app/apt-repo/vajra-archive-keyring.asc | gpg --dearmor -o /usr/share/keyrings/vajra-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/vajra-archive-keyring.gpg] https://vajra-os.vercel.app/apt-repo vajra main" | sudo tee /etc/apt/sources.list.d/vajra.list
+        <div class="code">curl -fsSL https://ksraj20009.github.io/vajra-os/apt-repo/vajra-archive-keyring.asc | gpg --dearmor -o /usr/share/keyrings/vajra-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/vajra-archive-keyring.gpg] https://ksraj20009.github.io/vajra-os/apt-repo vajra main" | sudo tee /etc/apt/sources.list.d/vajra.list
+
 sudo apt update
 sudo apt install vajra-core vajra-buddhi-ai vajra-security-center</div>
     </div>
