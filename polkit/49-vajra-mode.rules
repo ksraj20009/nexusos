@@ -1,0 +1,46 @@
+// Vajra OS Polkit Rules — Beginner mode: safety guardrails, Pro mode: full access
+
+polkit.addRule(function(action, subject) {
+    var isBeginner = subject.isInGroup("vajra-beginner");
+    var isPro = subject.isInGroup("vajra-pro");
+    
+    var dangerousActions = [
+        "org.freedesktop.policykit.exec",
+        "org.freedesktop.systemd1.manage-units",
+        "org.freedesktop.packagekit.system-install"
+    ];
+    
+    // In Beginner mode, block dangerous actions
+    if (isBeginner && !isPro) {
+        if (dangerousActions.indexOf(action.id) >= 0) {
+            polkit.log("Vajra OS: Blocking " + action.id + " for beginner user");
+            return polkit.Result.NO;
+        }
+        
+        // Block package installation in beginner mode
+        if (action.id.indexOf("packagekit") >= 0 && action.id.indexOf("install") >= 0) {
+            polkit.log("Vajra OS: Blocking package install for beginner user");
+            return polkit.Result.AUTH_ADMIN;
+        }
+        
+        // Block disk formatting
+        if (action.id.indexOf("udisks") >= 0 && action.id.indexOf("format") >= 0) {
+            polkit.log("Vajra OS: Blocking disk format for beginner user");
+            return polkit.Result.NO;
+        }
+    }
+    
+    // Pro mode: allow everything with authentication
+    if (isPro) {
+        return polkit.Result.AUTH_SELF;
+    }
+    
+    return polkit.Result.NOT_HANDLED;
+});
+
+// Network settings: allow in both modes
+polkit.addRule(function(action, subject) {
+    if (action.id.indexOf("org.freedesktop.NetworkManager") >= 0) {
+        return polkit.Result.YES;
+    }
+});
