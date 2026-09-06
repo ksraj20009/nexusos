@@ -1,0 +1,13 @@
+#!/bin/bash
+# vajra-keyring post-install
+set -e
+
+# Ensure keyring is in the right place with correct permissions
+chmod 644 /usr/share/keyrings/vajra-archive-keyring.gpg 2>/dev/null || true
+
+echo ""
+echo "  Vajra OS repository key installed."
+echo "  Key location: /usr/share/keyrings/vajra-archive-keyring.gpg"
+echo ""
+
+exit 0
