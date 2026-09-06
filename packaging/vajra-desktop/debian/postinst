@@ -1,0 +1,48 @@
+#!/bin/bash
+# vajra-desktop post-install — the big one, this is what makes it Vajra OS
+set -e
+
+echo ""
+echo "  ============================================"
+echo "  वज्र OS (Vajra OS) — Installation Complete!"
+echo "  ============================================"
+echo ""
+echo "  धर्मो रक्षति रक्षितः"
+echo "  (Dharma protects those who protect it)"
+echo ""
+echo "  What's installed:"
+echo "    * Vajra Core System (8 OS managers)"
+echo "    * Buddhi AI (बुद्धि) — India-first AI assistant"
+echo "    * Vajra Security Center — firewall, encryption, audit"
+echo "    * Vajra Control Center — 12-section system settings"
+echo "    * Vajra App Store — 28 curated free apps"
+echo "    * Vajra Update Manager — with rollback snapshots"
+echo "    * Desktop environment with Indian language support"
+echo ""
+echo "  Quick start:"
+echo "    vajra-control-center   — System settings"
+echo "    vajra-security-center  — Security dashboard"
+echo "    vajra-app-store        — Install more apps"
+echo "    buddhi                 — AI assistant"
+echo "    vajra-update-manager   — Check for updates"
+echo ""
+echo "  Next steps:"
+echo "    1. Run vajra-security-center and click 'One-click hardening'"
+echo "    2. Run vajra-control-center to set language and timezone"
+echo "    3. Run vajra-app-store to install additional apps"
+echo ""
+echo "  ============================================"
+
+# Enable Vajra services
+systemctl enable vajra-firewall 2>/dev/null || true
+systemctl enable vajra-update-checker 2>/dev/null || true
+
+# Set default firewall
+ufw --force enable 2>/dev/null || true
+ufw default deny incoming 2>/dev/null || true
+ufw default allow outgoing 2>/dev/null || true
+
+# Log installation
+echo "[$(date -Iseconds)] vajra-desktop 1.0.0 installed - full system" >> /var/log/vajra/install.log
+
+exit 0
