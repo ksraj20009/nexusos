@@ -1,0 +1,32 @@
+Source: vajra-buddhi-ai
+Section: python
+Priority: optional
+Maintainer: Vajra OS Team <packages@vajra-os.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.0
+Homepage: https://vajra-os.org
+
+Package: vajra-buddhi-ai
+Architecture: all
+Depends: ${misc:Depends}, python3, python3-pip, espeak-ng, ffmpeg
+Recommends: portaudio19-dev, python3-pyaudio
+Description: Buddhi AI (बुद्धि) — India-first AI assistant for Vajra OS
+ Buddhi is the built-in AI assistant for Vajra OS, designed to be:
+ .
+  * Agentic — can execute tasks, not just chat
+  * Voice-controlled — supports Indian languages (Hindi, Tamil, Bengali, etc.)
+  * Privacy-first — runs completely locally, no cloud APIs
+  * India-aware — understands Indian context, festivals, currency, languages
+ .
+ Features:
+  * Voice recognition with Indian language support
+  * Text-to-speech in Hindi and English
+  * System control (launch apps, change settings, manage files)
+  * Code generation and execution
+  * Indian calendar (Panchang) integration
+  * Vedic math calculations
+  * GST calculator
+  * Festival reminders
+  * Ayurveda health tips
+ .
+ All processing happens locally — your data never leaves your machine.
