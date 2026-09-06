@@ -1,0 +1,70 @@
+#!/bin/bash
+# Vajra OS Mode Switcher — Beginner / Pro
+# Usage: vajra-mode [beginner|pro|status]
+
+set -e
+
+MODE="${1:-status}"
+
+case "$MODE" in
+    beginner)
+        # Add to beginner group, remove from pro
+        sudo usermod -aG vajra-beginner "$USER" 2>/dev/null || true
+        sudo gpasswd -d "$USER" vajra-pro 2>/dev/null || true
+        echo ""
+        echo "  [+] Switched to BEGINNER mode"
+        echo "  [+] Safety guardrails: ON"
+        echo "  [+] Dangerous commands: BLOCKED"
+        echo "  [+] Package install: requires admin auth"
+        echo "  [+] Disk formatting: BLOCKED"
+        echo ""
+        echo "  Log out and log back in for changes to take effect."
+        echo ""
+        ;;
+
+    pro)
+        # Add to pro group, remove from beginner
+        sudo usermod -aG vajra-pro "$USER" 2>/dev/null || true
+        sudo gpasswd -d "$USER" vajra-beginner 2>/dev/null || true
+        echo ""
+        echo "  [+] Switched to PRO mode"
+        echo "  [+] Safety guardrails: OFF"
+        echo "  [+] Full system access: ENABLED"
+        echo "  [+] All commands: AVAILABLE (with auth)"
+        echo ""
+        echo "  WARNING: You now have full access to dangerous operations."
+        echo "  Use with caution. With great power comes great responsibility."
+        echo ""
+        echo "  Log out and log back in for changes to take effect."
+        echo ""
+        ;;
+
+    status)
+        if groups "$USER" 2>/dev/null | grep -q "vajra-pro"; then
+            echo ""
+            echo "  Current mode: PRO (full access)"
+            echo "  Safety guardrails: OFF"
+            echo ""
+        elif groups "$USER" 2>/dev/null | grep -q "vajra-beginner"; then
+            echo ""
+            echo "  Current mode: BEGINNER (safety guardrails ON)"
+            echo "  Dangerous commands: BLOCKED"
+            echo ""
+        else
+            echo ""
+            echo "  Current mode: DEFAULT (no mode set)"
+            echo "  Run: vajra-mode beginner  (safe)"
+            echo "  Run: vajra-mode pro       (full access)"
+            echo ""
+        fi
+        ;;
+
+    *)
+        echo "Usage: vajra-mode [beginner|pro|status]"
+        echo ""
+        echo "  beginner  — Safety guardrails ON, dangerous commands blocked"
+        echo "  pro        — Full access, no restrictions (advanced users)"
+        echo "  status     — Show current mode"
+        echo ""
+        ;;
+esac
