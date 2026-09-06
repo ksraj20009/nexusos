@@ -1,0 +1,37 @@
+# ============================================================================
+# Vajra OS — Calamares Branding
+# ============================================================================
+# Defines the visual appearance of the Calamares installer.
+# ============================================================================
+---
+productName: "Vajra OS"
+productVersion: "1.0"
+shortProductName: "Vajra"
+version: "1.0"
+shortVersion: "1.0"
+subVersion: "वज्र"
+logo: "vajra-logo.png"
+banner: "vajra-banner.png"
+
+# Style
+style:
+  SidebarBackground: "#1a1a2e"
+  SidebarText: "#e94560"
+  SidebarTextCurrent: "#ffffff"
+  SidebarBackgroundCurrent: "#0f3460"
+  SidebarTextHighlight: "#e94560"
+  SidebarTextHighlightCurrent: "#ffffff"
+
+# Fonts
+font:
+  size: 12pt
+  weight: 400
+
+# Welcome page
+welcome:
+  showSupportUrl: true
+  showKnownIssuesUrl: false
+  showReleaseNotesUrl: false
+
+# Slideshow
+slideshow: "vajra-slideshow.qml"
