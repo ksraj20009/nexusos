@@ -2,4 +2,4 @@
 set -e
 LB_DIST="debian"
 LB_RELEASE="trixie"
-lb config noauto --distribution trixie --architecture amd64 --bootloaders syslinux,grub-efi --iso-volume NexusOS-1.0 --iso-application NexusOS --mirror-bootstrap http://deb.debian.org/debian/ --mirror-binary http://deb.debian.org/debian/ --locale en_IN.UTF-8 "$@"
+lb config noauto --distribution trixie --architecture amd64 --bootloaders syslinux,grub-efi --iso-volume VajraOS-1.0 --iso-application "Vajra OS" --mirror-bootstrap http://deb.debian.org/debian/ --mirror-binary http://deb.debian.org/debian/ --locale en_IN.UTF-8 "$@"
