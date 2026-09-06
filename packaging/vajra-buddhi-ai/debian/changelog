@@ -1,0 +1,7 @@
+vajra-buddhi-ai (1.0.0) vajra; urgency=medium
+
+  * Initial release — Buddhi AI (बुद्धि) India-first AI assistant
+  * Voice control, agentic task execution, local/private
+  * Indian language support, Panchang, Vedic math, GST calculator
+
+ -- Vajra OS Team <packages@vajra-os.org>  Sat, 06 Sep 2026 09:00:00 +0000
