@@ -1,0 +1,8 @@
+vajra-core (1.0.0) vajra; urgency=medium
+
+  * Initial release of Vajra OS Core System
+  * Includes: boot manager, process manager, memory manager, filesystem manager,
+    device manager, display server, service manager, user session manager
+  * These are the fundamental OS building blocks for Vajra OS
+
+ -- Vajra OS Team <packages@vajra-os.org>  Sat, 06 Sep 2026 08:50:00 +0000
