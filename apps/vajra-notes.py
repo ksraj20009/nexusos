@@ -1,44 +1,57 @@
 #!/usr/bin/env python3
-"""Vajra OS - Built-in Notes App"""
-import sys, os, json
-from datetime import datetime
+"""Vajra OS Notes App - Simple note-taking with tags and search."""
+import os, json, datetime
+from pathlib import Path
 
-NOTES_FILE = os.path.expanduser("~/.vajra-notes.json")
+NOTES_DIR = Path.home() / ".vajra" / "notes"
+NOTES_FILE = NOTES_DIR / "notes.json"
 
 def load_notes():
-    if os.path.exists(NOTES_FILE):
-        with open(NOTES_FILE, 'r') as f:
+    if NOTES_FILE.exists():
+        with open(NOTES_FILE) as f:
             return json.load(f)
     return []
 
 def save_notes(notes):
-    with open(NOTES_FILE, 'w') as f:
+    NOTES_DIR.mkdir(parents=True, exist_ok=True)
+    with open(NOTES_FILE, "w") as f:
         json.dump(notes, f, indent=2)
 
 def main():
     notes = load_notes()
-    cmd = sys.argv[1] if len(sys.argv) > 1 else "list"
-    if cmd == "add":
-        text = " ".join(sys.argv[2:])
-        notes.append({"date": datetime.now().strftime("%Y-%m-%d %H:%M"), "text": text})
-        save_notes(notes)
-        print(f"  Note added: {text}")
-    elif cmd == "list":
-        if not notes:
-            print("  No notes yet. Use: vajra-notes add <text>")
-        for i, n in enumerate(notes, 1):
-            print(f"  [{i}] {n['date']}: {n['text']}")
-    elif cmd == "remove":
-        idx = int(sys.argv[2]) - 1
-        if 0 <= idx < len(notes):
-            removed = notes.pop(idx)
+    print("=" * 50)
+    print("  Vajra OS Notes")
+    print("=" * 50)
+    while True:
+        print(f"\n  Notes: {len(notes)}")
+        print("  1. New note  2. List  3. Search  4. Delete  5. Export  6. Exit")
+        c = input("  Choice: ").strip()
+        if c == "1":
+            title = input("  Title: ").strip()
+            body = input("  Body: ").strip()
+            tags = input("  Tags (comma-sep): ").strip().split(",")
+            notes.append({"title": title, "body": body, "tags": [t.strip() for t in tags],
+                          "date": datetime.datetime.now().isoformat()})
             save_notes(notes)
-            print(f"  Removed: {removed['text']}")
-    elif cmd == "clear":
-        save_notes([])
-        print("  All notes cleared.")
-    else:
-        print("  Vajra Notes - Commands: add <text>, list, remove <n>, clear")
+            print("  [+] Note saved")
+        elif c == "2":
+            for i, n in enumerate(notes):
+                print(f"  {i+1}. {n['title']} [{','.join(n['tags'])}] ({n['date'][:10]})")
+        elif c == "3":
+            q = input("  Search: ").strip().lower()
+            for n in notes:
+                if q in n["title"].lower() or q in n["body"].lower() or q in n["tags"]:
+                    print(f"  - {n['title']}: {n['body'][:60]}")
+        elif c == "4":
+            idx = int(input("  Note number: ")) - 1
+            if 0 <= idx < len(notes):
+                notes.pop(idx)
+                save_notes(notes)
+                print("  [+] Deleted")
+        elif c == "5":
+            print(f"  Exported to {NOTES_FILE}")
+        elif c == "6":
+            break
 
 if __name__ == "__main__":
     main()
