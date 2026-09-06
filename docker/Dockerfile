@@ -1,45 +1,120 @@
+# ============================================================================
+# Vajra OS — Dockerfile
+# ============================================================================
+# This Dockerfile builds a Vajra OS container image — useful for testing,
+# development, and running Vajra tools in any environment.
+# ============================================================================
+
 FROM debian:trixie
 
-LABEL org.opencontainers.image.title="Vajra OS"
-LABEL org.opencontainers.image.description="वज्र OS — Privacy-first, AI-powered Linux OS"
-LABEL org.opencontainers.image.version="1.0"
-LABEL org.opencontainers.image.license="MIT"
+LABEL maintainer="Vajra OS Team <packages@vajra-os.org>"
+LABEL description="Vajra OS (वज्र OS) — India's Privacy-First AI-Powered Operating System"
+LABEL version="1.0"
 
+# Set environment
 ENV DEBIAN_FRONTEND=noninteractive
-ENV VAJRA_VERSION=1.0
-ENV USER=vajra
+ENV LANG=en_IN.UTF-8
+ENV LC_ALL=en_IN.UTF-8
+ENV TZ=Asia/Kolkata
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 python3-pip python3-requests \
-    tor firewalld apparmor \
-    curl wget git htop neofetch \
-    espeak-ng xclip brightnessctl \
-    network-manager \
-    sudo locales \
+# Install base system
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    bash \
+    systemd \
+    systemd-sysv \
+    sudo \
+    curl \
+    wget \
+    git \
+    vim \
+    htop \
+    neofetch \
+    locales \
+    fonts-noto-core \
+    fonts-lohit-deva \
+    ufw \
+    gnupg \
+    apparmor \
     && rm -rf /var/lib/apt/lists/*
 
-RUN sed -i '/en_IN.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+# Generate Indian locale
+RUN sed -i 's/# en_IN.UTF-8 UTF-8/en_IN.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i 's/# hi_IN.UTF-8 UTF-8/hi_IN.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i 's/# ta_IN.UTF-8 UTF-8/ta_IN.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
 
-RUN useradd -m -s /bin/bash -G sudo,audio,video $USER \
-    && echo "$USER:$USER" | chpasswd \
-    && echo "$USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/$USER
+# Set timezone
+RUN ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 
-RUN mkdir -p /opt/vajra/{ai,privacy,scripts,apps,branding}
+# Create vajra user
+RUN groupadd --system vajra && \
+    useradd -m -s /bin/bash -g vajra -G sudo vajra && \
+    echo "vajra ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vajra && \
+    chmod 440 /etc/sudoers.d/vajra
 
-COPY ai/buddhi-ai.py /opt/vajra/ai/buddhi-ai.py
-COPY ai/buddhi-ai.service /etc/systemd/system/buddhi-ai.service
-COPY privacy/ /opt/vajra/privacy/
-COPY scripts/ /opt/vajra/scripts/
-COPY apps/ /opt/vajra/apps/
+# Create Vajra directories
+RUN mkdir -p /etc/vajra/settings /var/lib/vajra /var/log/vajra /usr/share/vajra
 
-RUN chmod +x /opt/vajra/ai/*.py /opt/vajra/scripts/*.sh /opt/vajra/privacy/*.sh /opt/vajra/apps/*.sh 2>/dev/null || true
+# Copy Vajra OS files
+COPY core/ /usr/share/vajra/core/
+COPY ai/ /usr/share/vajra/ai/
+COPY system/ /usr/share/vajra/system/
+COPY security/ /usr/share/vajra/security/
+COPY network/ /usr/share/vajra/network/
 
-RUN ln -sf /opt/vajra/ai/buddhi-ai.py /usr/bin/buddhi
+# Install Vajra core tools to /usr/bin
+RUN for f in /usr/share/vajra/core/*.sh /usr/share/vajra/core/*.py; do \
+        if [ -f "$f" ]; then \
+            name=$(basename "$f" | sed 's/\.\(sh\|py\)$//'); \
+            cp "$f" "/usr/bin/$name"; \
+            chmod 755 "/usr/bin/$name"; \
+        fi; \
+    done
 
-RUN echo "vajra" > /etc/hostname
+# Install Buddhi AI
+RUN if [ -f /usr/share/vajra/ai/buddhi-ai.py ]; then \
+        cp /usr/share/vajra/ai/buddhi-ai.py /usr/bin/buddhi; \
+        chmod 755 /usr/bin/buddhi; \
+    fi
 
-WORKDIR /home/vajra
+# Set up os-release
+RUN cat > /etc/os-release << 'OSEOF'
+NAME="Vajra OS"
+VERSION="1.0 (वज्र)"
+ID=vajra
+ID_LIKE=debian
+PRETTY_NAME="Vajra OS 1.0 (वज्र OS)"
+HOME_URL="https://vajra-os.org"
+SUPPORT_URL="https://github.com/ksraj20009/vajra-os"
+ANSI_COLOR="1;35"
+OSEOF
+
+# Set hostname
+RUN echo "vajra-os" > /etc/hostname
+
+# Default settings
+RUN echo '{"os_mode": "beginner", "language": "en_IN", "timezone": "Asia/Kolkata"}' > /etc/vajra/settings/vajra.conf
+
+# Welcome message
+RUN cat > /etc/motd << 'MOTDEOF'
+
+  ╔═══════════════════════════════════════════════╗
+  ║     वज्र OS (Vajra OS) 1.0                     ║
+  ║     India's Privacy-First AI-Powered OS        ║
+  ║     धर्मो रक्षति रक्षितः                       ║
+  ╚═══════════════════════════════════════════════╝
+
+  Tools: vajra-boot-manager, vajra-process-manager, vajra-memory-manager,
+         vajra-filesystem-manager, vajra-device-manager, vajra-display-server,
+         vajra-service-manager, vajra-user-session-manager, buddhi
+
+MOTDEOF
+
+# Switch to vajra user
 USER vajra
+WORKDIR /home/vajra
 
-EXPOSE 5210
-ENTRYPOINT ["python3", "/opt/vajra/ai/buddhi-ai.py", "--service"]
+# Default command
+CMD ["/bin/bash"]
